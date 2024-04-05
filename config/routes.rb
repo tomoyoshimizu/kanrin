@@ -18,8 +18,8 @@ Rails.application.routes.draw do
     get "/about" => "homes#about"
     resources :users, only: [:index, :edit, :show, :update, :destroy] do
       member do
-        get "following"
-        get "follower"
+        get "followings"
+        get "followers"
         get "bookmarks"
         get "notifications"
       end
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "homes#top"
     resources :users, only: [:index] do
-      get "freeze", on: :member
+      patch "freeze", on: :member
     end
   end
 
