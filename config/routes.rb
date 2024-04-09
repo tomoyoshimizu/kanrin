@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       get "bookmarks", on: :member
       resource :bookmark, only: [:create, :destroy]
     end
-    resources :tags, only: [:index] do
+    resources :tags, only: [:index, :show] do
       get "search", on: :collection
     end
     resources :posts do

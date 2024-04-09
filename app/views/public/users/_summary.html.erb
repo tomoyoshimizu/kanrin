@@ -1,0 +1,16 @@
+<div class="col-12 col-lg-6 mb-4">
+  <div class="card h-100">
+    <div class="card-body">
+      <%= link_to user_path(user), class: "text-reset" do %>
+        <div class="d-flex align-items-center">
+          <%= image_tag user.get_image(96, 96), class: "border border-light rounded-circle" %>
+          <div class="ml-2">
+            <h3 class="h6 font-weight-bold"><%= user.name %></h3>
+            <p><small><%= user.description %></small></p>
+            <%= render "public/relationships/btn", user: user %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

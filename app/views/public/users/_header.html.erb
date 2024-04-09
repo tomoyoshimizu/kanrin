@@ -1,0 +1,42 @@
+<div class="card mb-4">
+  <div class="card-body d-flex align-items-center">
+    <%= image_tag user.get_image(128, 128), class: "border border-light rounded-circle" %>
+    <div class="ml-2">
+      <h3 class="h5 font-weight-bold"><%= user.name %></h3>
+      <p class="m-0"><%= user.description %></p>
+    </div>
+    <div>
+      <% if @user == current_user %>
+        <%= link_to "設定", edit_user_path(user) ,class: "btn btn-outline-primary rounded-pill" %>
+      <% else %>
+      <% end %>
+      <%= render "public/relationships/btn", user: @user %>
+    </div>
+  </div>
+  <div class="card-footer">
+    <ul class="nav nav-pills">
+    <li class="nav-item">
+      <%= link_to user_path(user), class: helper_user_nav_class("show") do %>
+        プロジェクト
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to followings_user_path(user), class: helper_user_nav_class("followings") do %>
+        フォロー
+      <% end %>
+    </li>
+    <% if @user == current_user %>
+      <li class="nav-item">
+        <%= link_to followers_user_path(user), class: helper_user_nav_class("followers") do %>
+          フォロワー
+        <% end %>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <%= link_to bookmarks_user_path(user), class: helper_user_nav_class("bookmarks") do %>
+        ブックマーク
+      <% end %>
+    </li>
+  </ul>
+  </div>
+</div>

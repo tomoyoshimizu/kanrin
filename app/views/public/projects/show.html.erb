@@ -1,2 +1,49 @@
-<h1>Public::Projects#show</h1>
-<p>Find me in app/views/public/projects/show.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-5 col-xl-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= render "public/projects/status", status: @project.status %>
+          <div class="d-flex justify-content-between">
+            <h2 class="h3"><%= @project.title %></h2>
+            <% unless @project.user == current_user %>
+              <%= render "public/bookmarks/btn", project: @project %>
+            <% end %>
+          </div>
+          <p><%= render "public/users/link", user: @project.user %></p>
+          <p><%= @project.description %></p>
+          <%= render partial: "public/tags/tag", collection: @project.tags, as: "tag" %>
+          <p class="card-text text-muted">
+            <small>作成日：<%= @project.created_at.strftime("%Y/%m/%d") %></small>
+          </p>
+          <div class="row">
+            <% if current_user == @project.user %>
+              <div class="col-6">
+                <%= link_to edit_project_path(@project), class: "btn btn-sm btn-block btn-outline-secondary rounded-pill" do %>
+                  編集
+                <% end %>
+              </div>
+              <div class="col-6">
+                <%= link_to project_path(@project), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-sm btn-block btn-outline-danger rounded-pill" do %>
+                  削除
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if current_user == @project.user %>
+        <%= link_to new_post_path(project: @project), class: "btn btn-lg btn-block btn-success rounded-pill mb-4" do %>
+          新規投稿
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+      <% if @project.posts.empty? %>
+        <p class="h4 text-center mt-4">まだプロジェクトに<wbr>投稿がありません。</p>
+      <% else %>
+        <%= render partial: "public/posts/summary", collection: @project.posts.order(updated_at: :desc), as: "post" %>
+      <% end %>
+    </div>
+  </div>
+</div>
