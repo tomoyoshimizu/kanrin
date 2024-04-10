@@ -1,0 +1,30 @@
+<div class="col-12 col-sm-6 col-lg-4 mb-4">
+  <div class="card h-100">
+    <div class="card-img-top">
+      <div class="project-status">
+        <%= render "public/projects/status", status: project.status %>
+      </div>
+      <% unless project.user == current_user %>
+        <div class="project-bookmark">
+          <%= render "public/bookmarks/btn", project: project %>
+        </div>
+      <% end %>
+      <%= image_tag Project.get_thumbnail(project), class: "w-100" %>
+    </div>
+    <div class="card-body">
+      <%= link_to project_path(project), class: "text-reset font-weight-bold stretched-link" do %>
+        <h3 class="card-title h5 font-weight-bold"><%= project.title %></h3>
+      <% end %>
+      <p class="card-text card-another-link">
+        <% unless controller_name == "users" && params[:id].to_i == project.user_id %>
+          <%= render "public/users/link", user: project.user %>
+        <% end %>
+      </p>
+      <p class="card-text"><small><%= project.description %></small></p>
+      <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
+      <p class="card-text text-muted">
+        <small>作成日：<%= project.created_at.strftime("%Y/%m/%d") %></small>
+      </p>
+    </div>
+  </div>
+</div>

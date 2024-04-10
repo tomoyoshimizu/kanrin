@@ -1,0 +1,26 @@
+<div class="card mb-2">
+  <% if post.image.attached? %>
+    <div class="card-img-top bg-light">
+      <%= link_to post_path(post) do %>
+        <div class="image-box">
+          <%= image_tag post.image %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="card-body">
+    <p><%= render "public/users/link", user: post.user %></p>
+    <p><%= post.body %></p>
+    <p class="text-muted m-0">
+      <small>投稿日：<%= post.created_at.strftime("%Y/%m/%d") %></small>
+      <% unless post.working_minutes.blank? %>
+        ｜<small>作業時間：<%= post.working_minutes %>min</small>
+      <% end %>
+    </p>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <%= link_to post_path(post) do %>
+      <small>コメント：<%= post.comments.count %></small>
+    <% end %>
+  </div>
+</div>

@@ -1,2 +1,45 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="card mb-2">
+        <div class="card-header">
+          <%= render "public/users/link", user: @post.user %>
+          ＞
+          <%= link_to project_path(@post.project) do %>
+            <%= @post.project.title %>
+          <% end %>
+        </div>
+        <% if @post.image.attached? %>
+          <div class="card-img-top text-center bg-light">
+            <%= image_tag @post.image, class: "mw-100" %>
+          </div>
+        <% end %>
+        <div class="card-body">
+          <p><%= @post.body %></p>
+          <p class="text-muted m-0">
+            <small>投稿日：<%= @post.created_at.strftime("%Y/%m/%d") %></small>
+            <% unless @post.working_minutes.blank? %>
+              ｜<small>作業時間：<%= @post.working_minutes %>min</small>
+            <% end %>
+          </p>
+        </div>
+        <% if current_user == @post.user %>
+          <div class="card-footer">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <%= link_to edit_post_path(@post), class: "btn btn-block btn-outline-secondary rounded-pill" do %>
+                  編集
+                <% end %>
+              </div>
+              <div class="col-6">
+                <%= link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-block btn-outline-danger rounded-pill" do %>
+                  削除
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

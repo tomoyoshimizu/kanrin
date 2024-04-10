@@ -1,0 +1,11 @@
+<div id="btn_favorite_project_<%= project.id %>">
+  <% if project.is_bookmarked_by?(current_user) %>
+    <%= link_to project_bookmark_path(project), method: :delete, remote: true, class: "btn btn-sm btn-danger rounded-pill" do %>
+      解除
+    <% end %>
+  <% else %>
+    <%= link_to project_bookmark_path(project), method: :post, remote: true, class: "btn btn-sm btn-success rounded-pill" do %>
+      登録
+    <% end %>
+  <% end %>
+</div>

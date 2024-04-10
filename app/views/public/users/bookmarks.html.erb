@@ -1,2 +1,10 @@
-<h1>Public::Users#bookmarks</h1>
-<p>Find me in app/views/public/users/bookmarks.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <%= render "public/users/header", user: @user %>
+      <div class="row">
+        <%= render partial: "public/projects/summary", collection: @user.bookmark_projects, as: "project" %>
+      </div>
+    </div>
+  </div>
+</div>
