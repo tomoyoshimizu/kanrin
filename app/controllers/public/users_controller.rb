@@ -1,4 +1,7 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:followers, :notifications, :edit, :update, :destroy]
+  before_action :prohibited_illegal_access, only: [:followers, :notifications, :edit, :update, :destroy]
+
   def index
     @users = User.all
   end
@@ -36,16 +39,16 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def withdraw
-    user = current_user
-    withdrew_email = "withdrew_" + Time.now.to_i.to_s + user.email
-    user.update(email: withdrew_email, is_active: false)
-    reset_session
-    redirect_to root_path
-  end
+  # def withdraw
+  #   user = current_user
+  #   withdrew_email = "withdrew_" + Time.now.to_i.to_s + user.email
+  #   user.update(email: withdrew_email, is_active: false)
+  #   reset_session
+  #   redirect_to root_path
+  # end
 
   def destroy
-    project_matched_id.destroy
+    user_matched_id.destroy
     reset_session
     redirect_to root_path
   end
@@ -57,5 +60,11 @@ class Public::UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :description, :image, :email, :telephone_number)
+    end
+
+    def prohibited_illegal_access
+      unless current_user == user_matched_id
+        redirect_to user_path(current_user)
+      end
     end
 end

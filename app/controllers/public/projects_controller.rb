@@ -1,5 +1,8 @@
 class Public::ProjectsController < ApplicationController
   include TagEditor
+  
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -58,5 +61,11 @@ class Public::ProjectsController < ApplicationController
 
     def project_params
       params.require(:project).permit(:title, :description, :status, :visibility)
+    end
+    
+    def prohibited_illegal_access
+      unless current_user == project_matched_id.user
+        redirect_to user_path(current_user)
+      end
     end
 end
