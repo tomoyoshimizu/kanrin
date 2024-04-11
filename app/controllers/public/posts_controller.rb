@@ -1,11 +1,13 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
+
   def index
     @post = Post.all
   end
 
   def create
     post = Post.new(post_params)
-
     if post.save
       redirect_to project_url(post.project)#, notice: "Post was successfully created."
     else
@@ -50,5 +52,11 @@ class Public::PostsController < ApplicationController
 
     def post_params
       params.require(:post).permit(:project_id, :body, :working_minutes, :image)
+    end
+
+    def prohibited_illegal_access
+      unless current_user == post_matched_id.user
+        redirect_to user_path(current_user)
+      end
     end
 end
