@@ -38,3 +38,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore dotenv file.
+/.env
+
+# Ignore dummy data.
+app/assets/seeds
