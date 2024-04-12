@@ -1,2 +1,41 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= form_with(url: admin_users_path, method: :get) do |form| %>
+            <% if @is_active.present? %>
+              <%= form.hidden_field :is_active, value: @is_active %>
+            <% end %>
+            <div class="d-flex">
+              <%= form.text_field :search_word, placeholder: "ユーザー名", value: @search_word, class: "form-control form-control-lg" %>
+              <%= form.submit "検索", name: nil, class: "btn btn-lg btn-secondary ml-2" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="card-footer">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <%= link_to admin_users_path(helper_nav_link_params("")), class: helper_nav_link_class("") do %>
+                すべて
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_users_path(helper_nav_link_params("true")), class: helper_nav_link_class("true") do %>
+                有効
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_users_path(helper_nav_link_params("false")), class: helper_nav_link_class("false") do %>
+                停止中
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="hoge" class="row">
+        <%= render partial: "admin/users/summary", collection: @users, as: "user" %>
+      </div>
+    </div>
+  </div>
+</div>

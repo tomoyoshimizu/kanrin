@@ -9,9 +9,14 @@ class User < ApplicationRecord
   has_many :followed_relationships, class_name: "Relationship", foreign_key: "followee_id", dependent: :destroy
   has_many :followers, through: :followed_relationships, source: :follower
   has_many :projects, dependent: :destroy
+  has_many :posts, through: :projects, source: :posts
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_projects, through: :bookmarks, source: :project
   has_many :comments, dependent: :destroy
+
+  scope :is_active, -> (boolean = true){ where(is_active: boolean) }
+  scope :search, -> (word){ where("name LIKE?", "%#{word}%") }
+  scope :desc, -> { order(created_at: "DESC") }
 
   has_one_attached :image
 

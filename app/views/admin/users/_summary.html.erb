@@ -1,0 +1,17 @@
+<div class="col-12 col-lg-6 mb-4">
+  <div class="card h-100">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="h5 m-0">
+          <%= render "public/users/link", user: user %>
+        </div>
+        <%= render "admin/users/freeze_btn", user: user %>
+      </div>
+      <dl class="list-data mt-3 mb-0">
+        <dt>登録日</dt><dd><%= user.created_at.strftime("%Y/%m/%d") %></dd>
+        <dt>メールアドレス</dt><dd class="email"><%= user.email %></dd>
+        <dt>電話番号</dt><dd><%= user.telephone_number %></dd>
+      </dl>
+    </div>
+  </div>
+</div>
