@@ -11,29 +11,6 @@
   --color-text: #192323;
   --color-bg: #f3f2ee;
 }
-/* box-sizing */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-/* body */
-body {
-  position: relative;
-  font-family: var(--font-family-sans-serif);
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  background-image: url(<%= asset_path("kinda-jean.png") %>);
-  min-width: 320px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-main{
-  flex: 1;
-}
 
 .wrap-2col{
   display: grid;
@@ -70,6 +47,28 @@ main{
   top: 0.5rem;
   right: 0.5rem;
   display: flex;
+}
+
+/* リスト（共通） */
+.list-data{
+  display: grid;
+  grid-template-columns: 100%;
+  column-gap: 2em;
+}
+@media screen and (min-width: 576px) {
+  .list-data{
+    grid-template-columns: auto 1fr;
+  }
+  .list-data > dt{
+    grid-column: 1;
+  }
+  .list-data > dd{
+    grid-column: 2;
+  }
+}
+.email{
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /* エラーメッセージ（共通） */
 #error_explanation,
