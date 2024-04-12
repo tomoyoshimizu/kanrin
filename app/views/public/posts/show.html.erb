@@ -4,10 +4,8 @@
       <div class="card mb-2">
         <div class="card-header">
           <%= render "public/users/link", user: @post.user %>
-          ＞
-          <%= link_to project_path(@post.project) do %>
-            <%= @post.project.title %>
-          <% end %>
+          <span>＞</span>
+          <%= link_to @post.project.title, project_path(@post.project), class: "text-reset font-weight-bold" %>
         </div>
         <% if @post.image.attached? %>
           <div class="card-img-top text-center bg-light">
@@ -22,6 +20,12 @@
               ｜<small>作業時間：<%= @post.working_minutes %>min</small>
             <% end %>
           </p>
+        </div>
+        <div id="post_comments">
+          <%= render "public/comments/comment_list", post: @post %>
+        </div>
+        <div id="post_comment_form" class="card-body border-top">
+          <%= render "public/comments/form", post: @post, comment: @new_comment %>
         </div>
         <% if current_user == @post.user %>
           <div class="card-footer">
