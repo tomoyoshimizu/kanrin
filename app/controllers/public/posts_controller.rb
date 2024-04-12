@@ -27,6 +27,7 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = post_matched_id
+    @new_comment = Comment.new
   end
 
   def update
