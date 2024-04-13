@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  GUEST_USER_EMAIL = "guest@example.com"
+  GUEST_USER_TELEPHONE_NUMBER = "00000000000"
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -24,6 +27,18 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true
   validates :telephone_number, presence: true
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲスト"
+      user.telephone_number = GUEST_USER_TELEPHONE_NUMBER
+    end
+  end
+  
+  def guest_user?
+    email == GUEST_USER_EMAIL
+  end
 
   def get_image(width, height)
     unless image.attached?

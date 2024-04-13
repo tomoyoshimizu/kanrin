@@ -27,8 +27,8 @@ class Public::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-  def after_sign_in_path_for(resource)
-    user_path(current_user)
+  def prohibit_multiple_login
+    redirect_to admin_root_path
   end
 
   def is_active?
@@ -36,8 +36,14 @@ class Public::SessionsController < Devise::SessionsController
     return unless @user && @user.valid_password?(params[:user][:password]) && !@user.is_active
     render new_customer_registration_path
   end
+  
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to user_path(user), notice: "guestuserでログインしました。"
+  end
 
-  def prohibit_multiple_login
-    redirect_to admin_root_path
+  def after_sign_in_path_for(resource)
+    user_path(current_user)
   end
 end
