@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]
     end
     resources :comments, only: [:edit, :update, :destroy]
+    resources :notifications, only: [:update]
   end
 
   # 管理者用

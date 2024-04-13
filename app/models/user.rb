@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_projects, through: :bookmarks, source: :project
   has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   scope :is_active, -> (boolean = true){ where(is_active: boolean) }
   scope :search, -> (word){ where("name LIKE?", "%#{word}%") }
