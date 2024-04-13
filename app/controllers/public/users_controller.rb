@@ -1,6 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:followers, :notifications, :edit, :update, :destroy]
   before_action :prohibited_illegal_access, only: [:followers, :notifications, :edit, :update, :destroy]
+  before_action :ensure_guest_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -67,4 +68,10 @@ class Public::UsersController < ApplicationController
         redirect_to user_path(current_user)
       end
     end
+    
+    def ensure_guest_user
+      if user_matched_id.guest_user?
+        redirect_to user_path(current_user)#, notice: ""
+      end
+    end 
 end
