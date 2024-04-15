@@ -8,6 +8,10 @@ module TagEditor
     remove_tags(project, before.difference(after))
   end
 
+  def delete_all_tags(project)
+    remove_tags(project, project.tags.pluck(:name))
+  end
+
   private
     def add_tags(project, tag_list)
       return false if tag_list.blank?

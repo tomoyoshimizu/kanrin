@@ -1,2 +1,14 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-5 col-xl-4">
+
+    </div>
+    <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+      <% if @posts.present? %>
+        <%= render partial: "public/posts/summary", collection: @posts, as: "post" %>
+      <% else %>
+        <p class="h4 text-center mt-4">まだプロジェクトに<wbr>投稿がありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>

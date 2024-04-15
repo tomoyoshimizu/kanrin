@@ -13,17 +13,25 @@
     </div>
     <div class="card-body">
       <%= link_to project_path(project), class: "text-reset font-weight-bold stretched-link" do %>
-        <h3 class="card-title h5 font-weight-bold"><%= project.title %></h3>
+        <h3 class="card-title h5 font-weight-bold text-oneline">
+          <% if project.visibility == "hidden" %>🔒<% end %><%= project.title %>
+        </h3>
       <% end %>
-      <p class="card-text card-another-link">
-        <% unless controller_name == "users" && params[:id].to_i == project.user_id %>
+      <% unless controller_name == "users" && params[:id].to_i == project.user_id %>
+        <p class="card-text card-another-link">
           <%= render "public/users/link", user: project.user %>
-        <% end %>
+        </p>
+      <% end %>
+      <p class="card-text text-twoline">
+        <small><%= project.description %></small>
       </p>
-      <p class="card-text"><small><%= project.description %></small></p>
-      <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
+    </div>
+    <div class="card-footer bg-white">
+      <div class="text-oneline">
+        <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
+      </div>
       <p class="card-text text-muted">
-        <small>作成日：<%= project.created_at.strftime("%Y/%m/%d") %></small>
+        <small>最終更新日：<%= project.last_posted_at.strftime("%Y/%m/%d") %></small>
       </p>
     </div>
   </div>

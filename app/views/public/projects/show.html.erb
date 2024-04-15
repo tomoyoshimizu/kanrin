@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-5 col-xl-4">
-      <div class="card mb-4">
+      <div class="card mb-3">
         <div class="card-body">
           <%= render "public/projects/status", status: @project.status %>
           <div class="d-flex justify-content-between">
@@ -32,16 +32,22 @@
           </div>
         </div>
       </div>
-      <% if current_user == @project.user %>
-        <%= link_to new_post_path(project: @project), class: "btn btn-lg btn-block btn-success rounded-pill mb-4" do %>
-          新規投稿
-        <% end %>
-      <% end %>
+
     </div>
     <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-      <% if @project.posts.empty? %>
-        <p class="h4 text-center mt-4">まだプロジェクトに<wbr>投稿がありません。</p>
-      <% else %>
+      <% unless @project.posts.present? %>
+        <p class="h4 text-wbr text-center mb-3">まだプロジェクトに<wbr>投稿がありません</p>
+      <% end %>
+      <% if current_user == @project.user %>
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-9 mb-4">
+            <%= link_to new_post_path(project: @project), class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill" do %>
+              新規プロジェクト作成
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @project.posts.present? %>
         <%= render partial: "public/posts/summary", collection: @project.posts.order(updated_at: :desc), as: "post" %>
       <% end %>
     </div>

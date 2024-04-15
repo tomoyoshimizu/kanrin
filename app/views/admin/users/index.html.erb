@@ -13,8 +13,8 @@
             </div>
           <% end %>
         </div>
-        <div class="card-footer">
-          <ul class="nav nav-pills">
+        <div class="card-footer bg-light p-0">
+          <ul class="nav nav-fill">
             <li class="nav-item">
               <%= link_to admin_users_path(helper_nav_link_params("")), class: helper_nav_link_class("") do %>
                 すべて
@@ -33,7 +33,7 @@
           </ul>
         </div>
       </div>
-      <div id="hoge" class="row">
+      <div class="row">
         <%= render partial: "admin/users/summary", collection: @users, as: "user" %>
       </div>
     </div>

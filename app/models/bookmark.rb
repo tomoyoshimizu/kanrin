@@ -5,6 +5,8 @@ class Bookmark < ApplicationRecord
   belongs_to :project
 
   has_one :notification, as: :notifiable, dependent: :destroy
+  
+  scope :desc, -> { order(created_at: "DESC") }
 
   after_create do
     create_notification(user_id: project.user_id)

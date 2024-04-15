@@ -3,7 +3,7 @@
     <div class="col-12 col-xl-10">
       <%= render "public/users/header", user: @user %>
       <div class="row">
-        <%= render partial: "public/users/summary", collection: @user.followers, as: "user" %>
+        <%= render partial: "public/users/summary", collection: @users, as: "user" %>
       </div>
     </div>
   </div>
