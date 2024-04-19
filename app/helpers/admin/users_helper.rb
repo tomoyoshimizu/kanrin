@@ -8,9 +8,9 @@ module Admin::UsersHelper
 
   def helper_nav_link_class(is_active)
     if is_active == @is_active
-      "nav-link active"
+      "nav-link nav-link-tab bg-light text-secondary py-3 active disabled font-weight-bold"
     else
-      "nav-link"
+      "nav-link nav-link-tab bg-light text-secondary py-3"
     end
   end
 end

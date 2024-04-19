@@ -1,36 +1,48 @@
 <%= form_with(model: user) do |form| %>
   <%= render "public/shared/error_messages", resource: form.object %>
 
-  <div class="form-group form-row">
-    <%= form.label :image, class: "col-md-2 px-0" %>
-    <%= form.file_field :image, accept: "image/*", class: "form-control-file col-md-10" %>
+  <div class="form-group row">
+    <%= form.label :image, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :name, class: "col-md-2 px-0" %>
-    <%= form.text_field :name, autocomplete: "username", class: "form-control col-md-10" %>
+    <%= form.label :name, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.text_field :name, autocomplete: "username", class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :description, class: "col-md-2 px-0" %>
-    <%= form.text_area :description, class: "form-control col-md-10" %>
+    <%= form.label :description, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.text_area :description, rows: "4", class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :email, class: "col-md-2 px-0" %>
-    <%= form.text_field :email, autocomplete: "email", class: "form-control col-md-10" %>
+    <%= form.label :email, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :telephone_number, class: "col-md-2 px-0 d-flex flex-wrap" do %>
+    <%= form.label :telephone_number, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
       <span>電話番号</span><small>(ハイフンなし)</small>
     <% end %>
-    <%= form.text_field :telephone_number, autocomplete: "tel", class: "form-control col-md-10" %>
+    <div class="col-md-9">
+      <%= form.text_field :telephone_number, autocomplete: "tel", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
+  <hr>
+
+  <div class="form-group row mb-0">
     <div class="col-6">
-      <%= link_to "キャンセル", "javascript:history.back()", class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
+      <%= link_to "キャンセル", user_path(user), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
     </div>
     <div class="col-6">
       <%= form.submit class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>

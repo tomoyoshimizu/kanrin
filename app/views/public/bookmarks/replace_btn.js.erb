@@ -1,1 +1,1 @@
-document.getElementById("btn_bookmark_project_<%= @project.id %>").outerHTML = "<%= j(render "public/bookmarks/btn", project: @project ) %>"
+document.getElementById("<%= j( "btn_bookmark_project_#{@project.id}" ) %>").outerHTML = "<%= j( render "public/bookmarks/btn", project: @project ) %>"

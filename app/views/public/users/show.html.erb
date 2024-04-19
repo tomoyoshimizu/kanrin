@@ -2,18 +2,23 @@
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
       <%= render "public/users/header", user: @user %>
-      <div class="row justify-content-end">
-        <% if @user == current_user %>
-          <div class="col-12 col-sm-6 col-lg-4 mb-4">
-            <%= link_to new_project_path, class: "btn btn-block btn-success rounded-pill" do %>
-              新規プロジェクトを追加
+      <% unless @projects.present? %>
+        <p class="h4 text-wbr text-center mb-4">まだプロジェクトが<wbr>作成されていません</p>
+      <% end %>
+      <% if @user == current_user %>
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-9 mb-4">
+            <%= link_to new_project_path, class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill" do %>
+              新規プロジェクト作成
             <% end %>
           </div>
-        <% end %>
-      </div>
-      <div class="row">
-        <%= render partial: "public/projects/summary", collection: @user.projects, as: "project" %>
-      </div>
+        </div>
+      <% end %>
+      <% if @projects.present? %>
+        <div class="row">
+          <%= render partial: "public/projects/summary", collection: @projects, as: "project" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

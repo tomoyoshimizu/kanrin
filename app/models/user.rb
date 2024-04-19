@@ -18,9 +18,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  scope :is_active, -> (boolean = true){ where(is_active: boolean) }
-  scope :search, -> (word){ where("name LIKE?", "%#{word}%") }
-  scope :desc, -> { order(created_at: "DESC") }
+  scope :valid,   -> { where(is_active: true) }
+  scope :invalid, -> { where(is_active: false) }
+  scope :search,  -> (word){ where("name LIKE?", "%#{word}%") }
+  scope :desc,    -> { order(created_at: "DESC") }
 
   has_one_attached :image
 
@@ -35,7 +36,7 @@ class User < ApplicationRecord
       user.telephone_number = GUEST_USER_TELEPHONE_NUMBER
     end
   end
-  
+
   def guest_user?
     email == GUEST_USER_EMAIL
   end

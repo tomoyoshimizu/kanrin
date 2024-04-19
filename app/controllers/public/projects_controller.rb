@@ -1,22 +1,25 @@
 class Public::ProjectsController < ApplicationController
   include TagEditor
-  
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
+  before_action :get_project_matched_id
+  before_action :authenticate_user!,        only: [:create, :new, :edit, :update, :destroy]
   before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
 
   def index
-    @projects = Project.all
+    @search_word = params[:search_word] || ""
+    @projects = Project.visible.valid.desc
+    @projects = @projects.search(@search_word) if @search_word.present?
+    @count = @projects.count
   end
 
   def create
-    project = Project.new(project_params)
-    project.user_id = current_user.id
+    @new_project = Project.new(project_params)
+    @new_project.user_id = current_user.id
 
-    if project.save
-      edit_tags(project, params[:project][:tags])
-      redirect_to project_url(project)#, notice: "Project was successfully created."
+    if @new_project.save
+      edit_tags(@new_project, params[:project][:tags])
+      redirect_to project_url(@new_project)
     else
-      @new_project = project
       render :new, status: :unprocessable_entity
     end
   end
@@ -26,46 +29,50 @@ class Public::ProjectsController < ApplicationController
   end
 
   def bookmarks
-    @project = project_matched_id
   end
 
   def edit
-    @project = project_matched_id
-    @tags = project_matched_id.tags.map{|tag| tag.name}.join(",")
+    @tags = @project.tags.map{|tag| tag.name}.join(",")
   end
 
   def show
-    @project = project_matched_id
   end
 
   def update
-    project = project_matched_id
-    if project.update(project_params)
-      edit_tags(project, params[:project][:tags])
-      redirect_to project_url(project)#, notice: "Project was successfully updated."
+    if @project.update(project_params)
+      edit_tags(@project, params[:project][:tags])
+      redirect_to project_url(@project)
     else
-      @project = project
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    project_matched_id.destroy
-    redirect_to user_path(current_user)#, notice: "Project was successfully destroyed."
+    delete_all_tags(@project)
+    @project.destroy
+    redirect_to user_path(current_user)
   end
 
   private
-    def project_matched_id
-      Project.find(params[:id])
+    def get_project_matched_id
+      if params[:id]
+        @project = Project.find_by(id: params[:id])
+        if @project.nil?
+          redirect_to projects_path
+        end
+        unless admin_signed_in? || @project.user.is_active
+          redirect_to projects_path
+        end
+      end
+    end
+
+    def prohibited_illegal_access
+      unless current_user == @project.user
+        redirect_to user_path(current_user)
+      end
     end
 
     def project_params
       params.require(:project).permit(:title, :description, :status, :visibility)
-    end
-    
-    def prohibited_illegal_access
-      unless current_user == project_matched_id.user
-        redirect_to user_path(current_user)
-      end
     end
 end

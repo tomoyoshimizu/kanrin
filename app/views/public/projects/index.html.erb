@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
+      <%= render "layouts/index_search" %>
       <div class="row">
         <%= render partial: "public/projects/summary", collection: @projects, as: "project" %>
       </div>

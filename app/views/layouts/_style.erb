@@ -4,26 +4,15 @@
   --font-family-serif: "Times New Roman", "Hiragino Mincho ProN", "YuMincho", "Yu Mincho", serif;
   --font-family-heading: "Headland One", serif;
 
-  --color-gold: #a28557;
   --color-secondary: #6C757D;
+  --color-success: #28a745;
   --color-danger: #dc3545;
   --color-dark: #454d55;
   --color-text: #192323;
   --color-bg: #f3f2ee;
 }
 
-.wrap-2col{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.image-box{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+/* カード（bootstrap拡張） */
 .image-box > img{
   width: 100%;
   height: 100%;
@@ -31,8 +20,13 @@
   object-fit: contain;
 }
 .card-another-link{
-  z-index: 1;
+  z-index: 10;
   position: relative;
+}
+.card-profile{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
 }
 .project-status{
   z-index: 1;
@@ -47,6 +41,109 @@
   top: 0.5rem;
   right: 0.5rem;
   display: flex;
+}
+
+/* ボタン（bootstrap拡張） */
+.btn{
+  white-space: nowrap;
+}
+.btn-bg-white:not(:hover){
+  background-color: #fff;
+}
+.btn-unfollow{
+  display: inline-grid;
+}
+.btn-unfollow:not(:hover){
+  border-color: var(--color-success) !important;
+  background-color: var(--color-success) !important;
+}
+.btn-unfollow::before{
+  grid-area: -1 / 1;
+  content: "フォロー中";
+  opacity: 1;
+  transition: opacity 0.15s ease-in-out;
+}
+.btn-unfollow__text{
+  grid-area: -1 / 1;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+.btn-unfollow:hover::before{
+  opacity: 0;
+}
+.btn-unfollow:hover > .btn-unfollow__text{
+  opacity: 1;
+}
+
+/* 特殊ボタン */
+.btn-bookmark{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2em;
+  height: 2em;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+.btn-bookmark:hover{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.svg-icon{
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+.svg-icon > svg{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: inherit;
+}
+
+/* タブ（bootstrap拡張） */
+.nav-link-tab{
+  position: relative;
+}
+.nav-link-tab.active::before{
+  content: "";
+  z-index: 1;
+  display: block;
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0;
+  height: 4px;
+  background-color: var(--color-secondary);
+}
+
+/* テキスト制御（共通） */
+.text-oneline,
+.text-twoline{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.text-oneline{
+  -webkit-line-clamp: 1;
+}
+.text-twoline{
+  -webkit-line-clamp: 2;
+}
+.text-wbr{
+  word-break: keep-all;
+}
+.text-mini{
+  font-size: small;
+}
+
+/* スクロール追従（共通） */
+@media screen and (min-width: 768px) {
+  .sticky-menu{
+    position: sticky;
+    top: 1.5rem;
+  }
 }
 
 /* リスト（共通） */
@@ -70,12 +167,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 /* エラーメッセージ（共通） */
 #error_explanation,
 .flash-message.alert{
   color: var(--color-danger);
 }
-
 .field_with_errors{
   display: contents;
 }

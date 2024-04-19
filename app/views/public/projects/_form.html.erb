@@ -1,36 +1,52 @@
 <%= form_with(model: project) do |form| %>
   <%= render "public/shared/error_messages", resource: form.object %>
 
-  <div class="form-group form-row">
-    <%= form.label :title, class: "col-md-2 px-0" %>
-    <%= form.text_field :title, class: "form-control col-md-10" %>
+  <div class="form-group row">
+    <%= form.label :title, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9 align-self-center">
+      <%= form.text_field :title, required: "required", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
-    <%= form.label :description, class: "col-md-2 px-0" %>
-    <%= form.text_area :description, class: "form-control col-md-10" %>
+  <div class="form-group row">
+    <%= form.label :description, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9 align-self-center">
+      <%= form.text_area :description, rows: "4", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
-    <%= form.label :tags, class: "col-md-2 px-0 d-flex flex-wrap" do %>
+  <div class="form-group row">
+    <%= form.label :tags, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
       <span>タグ</span><small>(カンマ区切り)</small>
     <% end %>
-    <%= form.text_field :tags, value: tags, class: "form-control col-8 col-md-10" %>
+    <div class="col-md-9 align-self-center">
+      <%= form.text_field :tags, value: tags, required: "required", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
-    <%= form.label :status, class: "col-md-2 px-0" %>
-    <%= form.select :status, Project.statuses_i18n.map { |key, value| [value, key] }, {include_blank: false}, class: "form-control col-md-10" %>
+  <div class="form-group row">
+    <%= form.label :status, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9 align-self-center">
+      <%= form.select :status, Project.statuses_i18n.map { |key, value| [value, key] }, {include_blank: false}, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
-    <%= form.label :visibility, class: "col-md-2 px-0" %>
-    <%= form.select :visibility, Project.visibilities_i18n.map { |key, value| [value, key] }, {include_blank: false}, class: "form-control col-md-10" %>
+  <div class="form-group row">
+    <%= form.label :visibility, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9 align-self-center">
+      <%= form.select :visibility, Project.visibilities_i18n.map { |key, value| [value, key] }, {include_blank: false}, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
+  <hr>
+
+  <div class="form-group row mb-0">
     <div class="col-6">
-      <%= link_to "キャンセル", "javascript:history.back()", class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
+      <% if action_name == "new" %>
+        <%= link_to "キャンセル", user_path(current_user), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
+      <% else %>
+        <%= link_to "キャンセル", project_path(project), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
+      <% end %>
     </div>
     <div class="col-6">
       <%= form.submit class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>

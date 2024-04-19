@@ -1,26 +1,33 @@
-<div class="card mb-2">
-  <% if post.image.attached? %>
-    <div class="card-img-top bg-light">
-      <%= link_to post_path(post) do %>
-        <div class="image-box">
-          <%= image_tag post.image %>
+
+  <div class="card mb-2">
+    <% unless controller_name == "projects" && params[:id].to_i == post.project_id %>
+      <div class="card-header bg-transparent">
+        <div class="d-flex align-items-center card-another-link">
+          <%= render "public/users/link", user: post.user %>
+          <span class="mx-2">＞</span>
+          <%= link_to post.project.title, project_path(post.project), class: "text-reset text-oneline font-weight-bold" %>
         </div>
-      <% end %>
-    </div>
-  <% end %>
-  <div class="card-body">
-    <p><%= render "public/users/link", user: post.user %></p>
-    <p><%= post.body %></p>
-    <p class="text-muted m-0">
-      <small>投稿日：<%= post.created_at.strftime("%Y/%m/%d") %></small>
-      <% unless post.working_minutes.blank? %>
-        ｜<small>作業時間：<%= post.working_minutes %>min</small>
-      <% end %>
-    </p>
-  </div>
-  <div class="card-footer d-flex justify-content-end">
-    <%= link_to post_path(post) do %>
-      <small>コメント：<%= post.comments.count %></small>
+      </div>
     <% end %>
+    <% if post.image.attached? %>
+      <div class="card-img-top bg-light border-bottom image-box">
+        <%= image_tag post.image %>
+      </div>
+    <% end %>
+    <div class="card-body">
+      <p class="card-text"><%= post.body %></p>
+      <div class="d-flex flex-wrap align-items-center">
+        <p class="text-muted text-mini m-0">
+          <span>投稿日 <%= post.created_at.strftime("%Y/%m/%d") %></span>
+          <% if post.working_minutes > 0 %>
+            ｜<span>作業時間 <%= post.working_minutes %>min</span>
+          <% end %>
+          <% if post.comments.count > 0 %>
+            <br>コメント <%= post.comments.count %>
+          <% end %>
+        </p>
+        <%= link_to "詳細", post_path(post), class: "btn btn-sm btn-outline-secondary rounded-pill ml-auto stretched-link" %>
+      </div>
+    </div>
   </div>
-</div>
+
