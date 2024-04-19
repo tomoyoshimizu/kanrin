@@ -22,12 +22,15 @@ class Project < ApplicationRecord
   end
 
   def last_posted_at
-    target = posts.desc.first
-    if target.present?
-      target.created_at
+    if posts.present?
+      posts.last.created_at
     else
       created_at
     end
+  end
+
+  def total_working_minutes
+    posts.pluck(:working_minutes).sum
   end
 
   def self.sort_last_posted(projects)

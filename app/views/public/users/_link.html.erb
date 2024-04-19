@@ -1,4 +1,4 @@
-<%= link_to user_path(user), class: "d-flex text-reset" do %>
+<%= link_to user_path(user), class: "d-inline-flex text-reset" do %>
   <%= image_tag user.get_image(24, 24), class: "border border-light rounded-circle mr-2" %>
   <span class="text-oneline font-weight-bold"><%= user.name %></span>
 <% end %>

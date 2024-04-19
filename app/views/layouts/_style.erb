@@ -13,12 +13,6 @@
 }
 
 /* カード（bootstrap拡張） */
-.image-box{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
 .image-box > img{
   width: 100%;
   height: 100%;
@@ -26,7 +20,7 @@
   object-fit: contain;
 }
 .card-another-link{
-  z-index: 1;
+  z-index: 10;
   position: relative;
 }
 .card-profile{
@@ -81,6 +75,33 @@
   opacity: 1;
 }
 
+/* 特殊ボタン */
+.btn-bookmark{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2em;
+  height: 2em;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+.btn-bookmark:hover{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.svg-icon{
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+.svg-icon > svg{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: inherit;
+}
+
 /* タブ（bootstrap拡張） */
 .nav-link-tab{
   position: relative;
@@ -112,6 +133,17 @@
 }
 .text-wbr{
   word-break: keep-all;
+}
+.text-mini{
+  font-size: small;
+}
+
+/* スクロール追従（共通） */
+@media screen and (min-width: 768px) {
+  .sticky-menu{
+    position: sticky;
+    top: 1.5rem;
+  }
 }
 
 /* リスト（共通） */

@@ -1,5 +1,5 @@
-<% if post.comments.present? %>
+<% if comments.present? %>
   <div class="card-body border-top">
-    <%= render partial: "public/comments/comment", collection: post.comments, as: "comment" %>
+    <%= render partial: "public/comments/comment", collection: comments, as: "comment" %>
   </div>
 <% end %>

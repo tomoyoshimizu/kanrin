@@ -1,13 +1,36 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-5 col-xl-4">
-
+      <div class="sticky-menu">
+        <div class="card mb-3">
+          <div class="card-body">
+            <%= image_tag current_user.get_image(128, 128), class: "border border-light rounded-circle mb-3" %>
+            <%= link_to user_path(current_user), class: "text-reset font-weight-bold stretched-link" do %>
+              <h3 class="card-title h5 font-weight-bold text-oneline"><%= current_user.name %></h3>
+            <% end %>
+            <p class="card-text text-twoline">
+              <small><%= current_user.description %></small>
+            </p>
+            <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-outline-secondary btn-bg-white rounded-pill card-another-link" %>
+          </div>
+        </div>
+        <%= link_to new_project_path, class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" do %>
+          新規プロジェクト作成
+        <% end %>
+      </div>
     </div>
     <div class="col-12 col-md-10 col-lg-7 col-xl-6">
       <% if @posts.present? %>
         <%= render partial: "public/posts/summary", collection: @posts, as: "post" %>
       <% else %>
-        <p class="h4 text-center mt-4">まだプロジェクトに<wbr>投稿がありません。</p>
+        <p class="h4 text-wbr text-center mt-4">ユーザーをフォローすると<wbr>投稿が表示されます</p>
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-9 mb-4">
+            <%= link_to users_path, class: "btn btn-lg btn-block btn-outline-secondary btn-bg-white rounded-pill" do %>
+              ユーザーを探す
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

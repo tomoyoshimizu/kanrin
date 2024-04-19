@@ -8,7 +8,7 @@ class Public::TagsController < ApplicationController
   end
 
   def show
-    @projects = tag_matched_id.projects.visible.valid.desc
+    @projects = @tag.projects.visible.valid.desc
   end
 
   private

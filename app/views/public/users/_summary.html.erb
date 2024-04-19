@@ -15,10 +15,12 @@
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <div class="card-another-link">
-        <%= render "public/relationships/btn", user: user %>
+    <% if user_signed_in? || admin_signed_in? %>
+      <div class="card-footer">
+        <div class="card-another-link">
+          <%= render "public/relationships/btn", user: user %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

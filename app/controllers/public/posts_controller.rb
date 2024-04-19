@@ -10,6 +10,7 @@ class Public::PostsController < ApplicationController
   def create
     @new_post = Post.new(post_params)
     if @new_post.save
+      @comments = @post.comments.valid
       redirect_to project_url(@new_post.project)
     else
       render :new, status: :unprocessable_entity
@@ -26,10 +27,12 @@ class Public::PostsController < ApplicationController
 
   def show
     @new_comment = Comment.new
+    @comments = @post.comments.valid
   end
 
   def update
     if @post.update(post_params)
+      @comments = @post.comments.valid
       redirect_to post_url(@post)#, notice: "Post was successfully updated."
     else
       render :edit, status: :unprocessable_entity

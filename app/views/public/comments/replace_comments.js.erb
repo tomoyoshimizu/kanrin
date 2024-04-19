@@ -1,2 +1,2 @@
-document.getElementById("post_comments").innerHTML = "<%= j(render "public/comments/comment_list", post: @post) %>";
+document.getElementById("post_comments").innerHTML = "<%= j(render "public/comments/comment_list", comments: @comments) %>";
 document.getElementById("post_comment_form").innerHTML = "<%= j(render "public/comments/form", post: @post, comment: @new_comment) %>";

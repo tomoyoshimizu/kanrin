@@ -8,6 +8,8 @@ class Comment < ApplicationRecord
   has_one :notification, as: :notifiable, dependent: :destroy
 
   validates :body, presence: true
+  
+  scope :valid, -> { joins(:user).where(user: {is_active: true}) }
 
   after_create do
     create_notification(user_id: self.project.user_id)

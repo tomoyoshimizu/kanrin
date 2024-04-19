@@ -4,21 +4,27 @@
   <%= form.hidden_field :project_id %>
 
   <div class="form-group form-row">
-    <%= form.label :image, class: "col-md-2 px-0" %>
-    <%= form.file_field :image, accept: "image/*", class: "form-control-file col-md-10" %>
+    <%= form.label :image, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :body, class: "col-md-2 px-0" %>
-    <%= form.text_area :body, class: "form-control col-md-10" %>
+    <%= form.label :body, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.text_area :body, class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :working_minutes, class: "col-md-2 px-0" %>
-    <%= form.text_field :working_minutes, pattern: "[0-9]+", title: "半角英数字で入力してください", class: "form-control col-md-10" %>
+    <%= form.label :working_minutes, class: "col-md-3 col-form-label" %>
+    <div class="col-md-9">
+      <%= form.text_field :working_minutes, pattern: "[0-9]+", title: "半角英数字で入力してください", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-group form-row">
+  <div class="form-group row mb-0">
     <div class="col-6">
       <%= link_to "キャンセル", "javascript:history.back()", class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
     </div>

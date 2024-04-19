@@ -1,4 +1,4 @@
-<div class="col-12 col-sm-6 col-lg-4 mb-4">
+<div class="col-12 col-md-6 col-lg-4 mb-4">
   <div class="card h-100">
     <div class="card-img-top">
       <div class="project-status">
@@ -14,7 +14,14 @@
     <div class="card-body">
       <%= link_to project_path(project), class: "text-reset font-weight-bold stretched-link" do %>
         <h3 class="card-title h5 font-weight-bold text-oneline">
-          <% if project.visibility == "hidden" %>🔒<% end %><%= project.title %>
+          <% if project.visibility == "hidden" %>
+            <span class="svg-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                <path fill="#192323" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/>
+              </svg>
+            </span>
+          <% end %>
+          <%= project.title %>
         </h3>
       <% end %>
       <% unless controller_name == "users" && params[:id].to_i == project.user_id %>
@@ -30,8 +37,11 @@
       <div class="text-oneline">
         <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
       </div>
-      <p class="card-text text-muted">
-        <small>最終更新日：<%= project.last_posted_at.strftime("%Y/%m/%d") %></small>
+      <p class="card-text text-muted text-mini">
+        <% unless project.last_posted_at == project.created_at %>
+          <span>更新 <%= project.last_posted_at.strftime("%Y/%m/%d") %>｜</span>
+        <% end %>
+        <span>作成 <%= project.created_at.strftime("%Y/%m/%d") %></span>
       </p>
     </div>
   </div>
