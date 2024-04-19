@@ -1,70 +1,84 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:followers, :notifications, :edit, :update, :destroy]
-  before_action :prohibited_illegal_access, only: [:followers, :notifications, :edit, :update, :destroy]
+  before_action :get_user_matched_id
+  before_action :authenticate_user!,         only: [:followers, :notifications, :edit, :update, :destroy]
+  before_action :prohibit_illegal_access,    only: [:followers, :notifications, :edit, :update, :destroy]
+  before_action :prohibit_guest_user_access, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @search_word = params[:search_word] || ""
+    @users = User.valid.desc
+    @users = @users.search(@search_word) if @search_word.present?
+    @count = @users.count
   end
 
   def followings
-    @user = user_matched_id
+    @users = @user.followees.valid.desc
   end
 
   def followers
-    @user = user_matched_id
+    @users = @user.followers.valid.desc
+    unless @users.present?
+      redirect_to user_path(@user)
+    end
   end
 
   def bookmarks
-    @user = user_matched_id
+    scoped_projects = @user.bookmark_projects.visible.valid
+    @projects = Project.sort_last_posted(scoped_projects)
   end
 
   def notifications
   end
 
   def edit
-    @user = user_matched_id
   end
 
   def show
-    @user = user_matched_id
+    scoped_projects = @user.projects
+    scoped_projects = scoped_projects.visible unless current_user == @user
+    @projects = Project.sort_last_posted(scoped_projects)
   end
 
   def update
-    user = user_matched_id
-    if user.update(user_params)
-      redirect_to user_path(user)#, notice: "User was successfully updated."
+    if @user.update(user_params)
+      redirect_to user_path(user)
     else
       @user = user
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # def withdraw
-  #   user = current_user
-  #   withdrew_email = "withdrew_" + Time.now.to_i.to_s + user.email
-  #   user.update(email: withdrew_email, is_active: false)
-  #   reset_session
-  #   redirect_to root_path
-  # end
-
   def destroy
-    user_matched_id.destroy
-    reset_session
+    @user.destroy
     redirect_to root_path
   end
 
   private
-    def user_matched_id
-      User.find(params[:id])
+    def get_user_matched_id
+      if params[:id]
+        @user = User.find_by(id: params[:id])
+        if @user.nil?
+          redirect_to users_path
+        end
+        unless admin_signed_in? || @user.is_active
+          redirect_to users_path
+        end
+      end
+    end
+
+    def prohibit_illegal_access
+      unless current_user == @user
+        redirect_to user_path(current_user)
+      end
+    end
+
+    def prohibit_guest_user_access
+      if @user.guest_user?
+        redirect_to user_path(current_user)
+      end
     end
 
     def user_params
       params.require(:user).permit(:name, :description, :image, :email, :telephone_number)
-    end
-
-    def prohibited_illegal_access
-      unless current_user == user_matched_id
-        redirect_to user_path(current_user)
-      end
     end
 end

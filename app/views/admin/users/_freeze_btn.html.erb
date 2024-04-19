@@ -1,0 +1,5 @@
+<% if user.is_active %>
+  <%= link_to "アカウント停止", freeze_admin_user_path(user.id, is_active: false), method: :patch, class: "btn btn-outline-danger rounded-pill" %>
+<% else %>
+  <%= link_to "停止を解除", freeze_admin_user_path(user.id, is_active: true), method: :patch, class: "btn btn-danger rounded-pill" %>
+<% end %>

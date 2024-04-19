@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
+      <h1 class="h4 mb-4"><%= render "public/tags/tag", tag: @tag %>のプロジェクト一覧</h1>
       <div class="row">
         <%= render partial: "public/projects/summary", collection: @projects, as: "project" %>
       </div>

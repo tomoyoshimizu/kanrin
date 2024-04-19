@@ -1,0 +1,12 @@
+<%= form_with(model: [post, comment], local: false) do |form| %>
+  <%= render "public/shared/error_messages", resource: form.object %>
+  <div class="form-row">
+    <div>
+      <%= image_tag current_user.get_image(48, 48), class: "border border-light rounded-circle mr-2" %>
+    </div>
+    <div class="flex-grow-1">
+      <%= form.text_area :body, id: "comment_text_area", placeholder: "コメントを入力してください。", class: "form-control" %>
+      <%= form.submit "コメントする", class: "btn btn-outline-success rounded-pill mt-2" %>
+    </div>
+  </div>
+<% end %>

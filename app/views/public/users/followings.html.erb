@@ -2,9 +2,23 @@
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
       <%= render "public/users/header", user: @user %>
-      <div class="row">
-        <%= render partial: "public/users/summary", collection: @user.followees, as: "user" %>
-      </div>
+      <% unless @users.present? %>
+        <p class="h4 text-wbr text-center mb-4">まだユーザーを<wbr>フォローしていません</p>
+        <% if @user == current_user %>
+          <div class="row justify-content-center">
+            <div class="col-12 col-sm-9 mb-4">
+              <%= link_to users_path, class: "btn btn-lg btn-block btn-outline-secondary btn-bg-white rounded-pill" do %>
+                ユーザーを探す
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @users.present? %>
+        <div class="row">
+          <%= render partial: "public/users/summary", collection: @users, as: "user" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

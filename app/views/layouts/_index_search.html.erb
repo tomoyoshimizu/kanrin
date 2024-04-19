@@ -1,0 +1,39 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <%= form_with(url: helper_index_form_url, method: :get) do |form| %>
+      <div class="d-flex">
+        <%= form.text_field :search_word, placeholder: "検索ワード", value: @search_word, class: "form-control form-control-lg" %>
+        <%= form.submit "検索", name: nil, class: "btn btn-lg btn-outline-secondary rounded-pill ml-2" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="card-footer bg-light p-0">
+    <ul class="nav nav-fill">
+      <li class="nav-item">
+        <%= link_to users_path(helper_index_link_params(@search_word)), class: helper_index_link_class("users") do %>
+          ユーザー
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to projects_path(helper_index_link_params(@search_word)), class: helper_index_link_class("projects") do %>
+          プロジェクト
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to tags_path(helper_index_link_params(@search_word)), class: helper_index_link_class("tags") do %>
+          タグ
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+<% if @search_word.present? %>
+  <p class="h4 mb-4">
+    <span>「<%= @search_word %>」の<%= I18n.t(controller_name, scope: ["activerecord", "controllers"]) %>検索結果</span>
+    <% if @count %>
+      <span>（<%= @count %>件）</span>
+    <% else %>
+      <span>は見つかりませんでした</span>
+    <% end %>
+  </p>
+<% end %>

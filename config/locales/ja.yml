@@ -34,6 +34,17 @@ ja:
       comment: "コメント"
       notification: "通知"
       admin: "管理者"
+    controllers:
+      users: "ユーザー"
+      relationships: "フォロー関係"
+      projects: "プロジェクト"
+      bookmarks: "ブックマーク"
+      tags: "タグ"
+      taggings: "タグ付け"
+      posts: "投稿"
+      comments: "コメント"
+      notifications: "通知"
+      admins: "管理者"
     # 追記
     attributes:
       user:

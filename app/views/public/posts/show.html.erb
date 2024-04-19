@@ -2,15 +2,13 @@
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
       <div class="card mb-2">
-        <div class="card-header">
+        <div class="card-header d-flex align-items-center bg-transparent border-bottom">
           <%= render "public/users/link", user: @post.user %>
-          ＞
-          <%= link_to project_path(@post.project) do %>
-            <%= @post.project.title %>
-          <% end %>
+          <span class="mx-2">＞</span>
+          <%= link_to @post.project.title, project_path(@post.project), class: "text-reset font-weight-bold text-oneline" %>
         </div>
         <% if @post.image.attached? %>
-          <div class="card-img-top text-center bg-light">
+          <div class="card-img-top text-center bg-light border-bottom">
             <%= image_tag @post.image, class: "mw-100" %>
           </div>
         <% end %>
@@ -23,16 +21,24 @@
             <% end %>
           </p>
         </div>
+        <div id="post_comments">
+          <%= render "public/comments/comment_list", comments: @comments %>
+        </div>
+        <% if user_signed_in? %>
+          <div id="post_comment_form" class="card-body border-top">
+            <%= render "public/comments/form", post: @post, comment: @new_comment %>
+          </div>
+        <% end %>
         <% if current_user == @post.user %>
           <div class="card-footer">
             <div class="row justify-content-center">
-              <div class="col-6">
-                <%= link_to edit_post_path(@post), class: "btn btn-block btn-outline-secondary rounded-pill" do %>
+              <div class="col-6 col-lg-5">
+                <%= link_to edit_post_path(@post), class: "btn btn-block btn-outline-secondary btn-bg-white rounded-pill" do %>
                   編集
                 <% end %>
               </div>
-              <div class="col-6">
-                <%= link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-block btn-outline-danger rounded-pill" do %>
+              <div class="col-6 col-lg-5">
+                <%= link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-block btn-outline-danger btn-bg-white rounded-pill" do %>
                   削除
                 <% end %>
               </div>

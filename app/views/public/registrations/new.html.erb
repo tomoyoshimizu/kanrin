@@ -1,57 +1,76 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-12 col-lg-10 col-xl-8">
+    <div class="col-12 col-lg-9 col-xl-8">
       <div class="card">
+        <div class="card-header">
+          <h1 class="h4 m-0">新規会員登録</h1>
+        </div>
         <div class="card-body">
           <%= form_with model: @user, url: user_registration_path do |form| %>
             <%= render "public/shared/error_messages", resource: resource %>
-            <div class="form-group form-row">
-              <%= form.label :image, class: "col-md-2 px-0" %>
-              <%= form.file_field :image, accept: "image/*", class: "form-control-file col-md-10" %>
+
+            <div class="form-group row">
+              <%= form.label :image, class: "col-md-3 col-form-label" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :name, class: "col-md-2 px-0" %>
-              <%= form.text_field :name, autocomplete: "username", class: "form-control col-md-10" %>
+            <div class="form-group row">
+              <%= form.label :name, class: "col-md-3 col-form-label" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.text_field :name, autocomplete: "username", class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :description, class: "col-md-2 px-0" %>
-              <%= form.text_area :description, class: "form-control col-md-10" %>
+            <div class="form-group row">
+              <%= form.label :description, class: "col-md-3 col-form-label" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.text_area :description, class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :email, class: "col-md-2 px-0" %>
-              <%= form.text_field :email, autocomplete: "email", class: "form-control col-md-10" %>
+            <div class="form-group row">
+              <%= form.label :email, class: "col-md-3 col-form-label" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :telephone_number, class: "col-md-2 px-0 d-flex flex-wrap" do %>
+            <div class="form-group row">
+              <%= form.label :telephone_number, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
                 <span>電話番号</span><small>(ハイフンなし)</small>
               <% end %>
-              <%= form.text_field :telephone_number, autocomplete: "tel", class: "form-control col-md-10" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.text_field :telephone_number, autocomplete: "tel", class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :password, class: "col-md-2 px-0 d-flex flex-wrap" do %>
+            <div class="form-group row">
+              <%= form.label :password, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
                 <span>パスワード</span>
                 <% if @minimum_password_length %>
                   <small>(<%= @minimum_password_length %>文字以上)</small>
                 <% end %>
               <% end %>
-              <%= form.password_field :password, autocomplete: "new-password", class: "form-control col-md-10" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group form-row">
-              <%= form.label :password_confirmation, class: "col-md-2 px-0 d-flex flex-wrap" do %>
-                <span>パスワード</span>
-                <small>(確認用)</small>
+            <div class="form-group row">
+              <%= form.label :password_confirmation, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
+                <span>パスワード</span><small>(確認用)</small>
               <% end %>
-              <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control col-md-10" %>
+              <div class="col-md-9 align-self-center">
+                <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+              </div>
             </div>
 
-            <div class="form-group">
-              <%= form.submit "新規登録" ,class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
+            <hr>
+
+            <div class="form-group m-0">
+              <%= form.submit "新規会員登録" ,class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
             </div>
           <% end %>
         </div>

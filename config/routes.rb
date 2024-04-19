@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
+  # ゲストログイン
+  devise_scope :user do
+    post "users/guest_sign_in", to: "public/sessions#guest_sign_in"
+  end
 
   # 管理者用
   # URL /admin/sign_in ...
@@ -29,13 +33,11 @@ Rails.application.routes.draw do
       get "bookmarks", on: :member
       resource :bookmark, only: [:create, :destroy]
     end
-    resources :tags, only: [:index, :show] do
-      get "search", on: :collection
+    resources :tags, only: [:index, :show]
+    resources :posts, shallow: true do
+      resources :comments, only: [:create, :edit, :update, :destroy]
     end
-    resources :posts do
-      resources :comments, only: [:create]
-    end
-    resources :comments, only: [:edit, :update, :destroy]
+    resources :notifications, only: [:update]
   end
 
   # 管理者用
