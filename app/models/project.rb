@@ -30,7 +30,7 @@ class Project < ApplicationRecord
   end
 
   def total_working_minutes
-    posts.pluck(:working_minutes).sum
+    posts.pluck(:working_minutes).compact.sum
   end
 
   def self.sort_last_posted(projects)

@@ -1,0 +1,15 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <%= image_tag current_user.get_image(128, 128), class: "border border-light rounded-circle mb-3" %>
+    <%= link_to user_path(current_user), class: "text-reset font-weight-bold stretched-link" do %>
+      <h3 class="card-title h5 font-weight-bold text-oneline"><%= current_user.name %></h3>
+    <% end %>
+    <p class="card-text text-twoline">
+      <small><%= current_user.description %></small>
+    </p>
+    <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-outline-secondary btn-bg-white rounded-pill card-another-link" %>
+  </div>
+</div>
+<%= link_to new_project_path, class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" do %>
+  新規プロジェクト作成
+<% end %>

@@ -28,9 +28,6 @@ class Public::ProjectsController < ApplicationController
     @new_project = Project.new
   end
 
-  def bookmarks
-  end
-
   def edit
     @tags = @project.tags.map{|tag| tag.name}.join(",")
   end

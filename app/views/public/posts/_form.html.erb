@@ -11,16 +11,18 @@
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :body, class: "col-md-3 col-form-label" %>
+    <%= form.label :body, class: "col-md-3 col-form-label required" %>
     <div class="col-md-9">
-      <%= form.text_area :body, class: "form-control" %>
+      <%= form.text_area :body, required: "required", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group form-row">
-    <%= form.label :working_minutes, class: "col-md-3 col-form-label" %>
+    <%= form.label :working_minutes, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
+      <span>作業時間</span><small>（分）</small>
+    <% end %>
     <div class="col-md-9">
-      <%= form.text_field :working_minutes, pattern: "[0-9]+", title: "半角英数字で入力してください", class: "form-control" %>
+      <%= form.number_field :working_minutes, class: "form-control" %>
     </div>
   </div>
 

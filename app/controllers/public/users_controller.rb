@@ -11,7 +11,7 @@ class Public::UsersController < ApplicationController
     @count = @users.count
   end
 
-  def followings
+  def followees
     @users = @user.followees.valid.desc
   end
 
@@ -28,6 +28,7 @@ class Public::UsersController < ApplicationController
   end
 
   def notifications
+    @notifications = current_user.notifications.unread.desc
   end
 
   def edit
@@ -41,7 +42,7 @@ class Public::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(user)
+      redirect_to user_path(@user)
     else
       @user = user
       render :edit, status: :unprocessable_entity

@@ -30,14 +30,17 @@ Rails.application.routes.draw do
       resource :relationship, only: [:create, :destroy]
     end
     resources :projects do
-      get "bookmarks", on: :member
       resource :bookmark, only: [:create, :destroy]
     end
     resources :tags, only: [:index, :show]
     resources :posts, shallow: true do
-      resources :comments, only: [:create, :edit, :update, :destroy]
+      resources :comments, only: [:create, :destroy]
     end
-    resources :notifications, only: [:update]
+    resources :notifications, only: [:update] do
+      member do
+        get "read"
+      end
+    end
   end
 
   # 管理者用

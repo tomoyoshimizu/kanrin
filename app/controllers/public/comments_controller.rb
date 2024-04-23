@@ -11,12 +11,6 @@ class Public::CommentsController < ApplicationController
     render "replace_comments"#, notice: "Comment was successfully created."
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def destroy
     @post = @comment.post
     @new_comment = Comment.new
