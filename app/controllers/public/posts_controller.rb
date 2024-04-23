@@ -10,7 +10,7 @@ class Public::PostsController < ApplicationController
   def create
     @new_post = Post.new(post_params)
     if @new_post.save
-      @comments = @post.comments.valid
+      @comments = @new_post.comments.valid
       redirect_to project_url(@new_post.project)
     else
       render :new, status: :unprocessable_entity

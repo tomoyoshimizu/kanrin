@@ -5,7 +5,7 @@ class Bookmark < ApplicationRecord
   belongs_to :project
 
   has_one :notification, as: :notifiable, dependent: :destroy
-  
+
   scope :desc, -> { order(created_at: "DESC") }
 
   after_create do
@@ -18,5 +18,9 @@ class Bookmark < ApplicationRecord
 
   def notification_path
      user_path(user)
+  end
+
+  def notification_user
+    self.user
   end
 end

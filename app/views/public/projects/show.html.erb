@@ -40,7 +40,7 @@
             </div>
           <% end %>
         </div>
-        <% if current_user == @project.user %>
+        <% if current_user == @project.user && @project.status != "completed" %>
           <%= link_to new_post_path(project: @project), class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" do %>
             投稿する
           <% end %>

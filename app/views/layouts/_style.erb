@@ -138,6 +138,17 @@
   font-size: small;
 }
 
+/* フォーム注釈（共通） */
+.required::after{
+  content: "*";
+}
+.text-required,
+.required::after{
+  font-weight: bold;
+  color: var(--color-danger);
+  margin: 0 0.25em;
+}
+
 /* スクロール追従（共通） */
 @media screen and (min-width: 768px) {
   .sticky-menu{

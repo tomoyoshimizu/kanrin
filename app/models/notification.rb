@@ -13,4 +13,8 @@ class Notification < ApplicationRecord
   def notifiable_path
     notifiable.notification_path
   end
+
+  def notifiable_user
+    notifiable.notification_user
+  end
 end

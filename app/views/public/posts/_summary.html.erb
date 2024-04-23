@@ -19,7 +19,7 @@
       <div class="d-flex flex-wrap align-items-center">
         <p class="text-muted text-mini m-0">
           <span>投稿日 <%= post.created_at.strftime("%Y/%m/%d") %></span>
-          <% if post.working_minutes > 0 %>
+          <% if post.working_minutes.present? %>
             ｜<span>作業時間 <%= post.working_minutes %>min</span>
           <% end %>
           <% if post.comments.count > 0 %>

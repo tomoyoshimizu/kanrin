@@ -2,8 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9 col-xl-8">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-baseline">
           <h1 class="h4 m-0">新規会員登録</h1>
+          <p class="m-0"><small><span class="text-required">*</span>は必須項目です</small></p>
         </div>
         <div class="card-body">
           <%= form_with model: @user, url: user_registration_path do |form| %>
@@ -17,9 +18,9 @@
             </div>
 
             <div class="form-group row">
-              <%= form.label :name, class: "col-md-3 col-form-label" %>
+              <%= form.label :name, class: "col-md-3 col-form-label required" %>
               <div class="col-md-9 align-self-center">
-                <%= form.text_field :name, autocomplete: "username", class: "form-control" %>
+                <%= form.text_field :name, autocomplete: "username", required: "required", class: "form-control" %>
               </div>
             </div>
 
@@ -31,46 +32,46 @@
             </div>
 
             <div class="form-group row">
-              <%= form.label :email, class: "col-md-3 col-form-label" %>
+              <%= form.label :email, class: "col-md-3 col-form-label required" %>
               <div class="col-md-9 align-self-center">
-                <%= form.text_field :email, autocomplete: "email", class: "form-control" %>
+                <%= form.text_field :email, autocomplete: "email", required: "required", class: "form-control" %>
               </div>
             </div>
 
             <div class="form-group row">
-              <%= form.label :telephone_number, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
+              <%= form.label :telephone_number, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline required" do %>
                 <span>電話番号</span><small>(ハイフンなし)</small>
               <% end %>
               <div class="col-md-9 align-self-center">
-                <%= form.text_field :telephone_number, autocomplete: "tel", class: "form-control" %>
+                <%= form.text_field :telephone_number, autocomplete: "tel", pattern: "\\d*", required: "required", class: "form-control" %>
               </div>
             </div>
 
             <div class="form-group row">
-              <%= form.label :password, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
+              <%= form.label :password, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline required" do %>
                 <span>パスワード</span>
                 <% if @minimum_password_length %>
                   <small>(<%= @minimum_password_length %>文字以上)</small>
                 <% end %>
               <% end %>
               <div class="col-md-9 align-self-center">
-                <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+                <%= form.password_field :password, autocomplete: "new-password", required: "required", class: "form-control" %>
               </div>
             </div>
 
             <div class="form-group row">
-              <%= form.label :password_confirmation, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline" do %>
+              <%= form.label :password_confirmation, class: "col-md-3 col-form-label d-flex flex-wrap align-items-baseline required" do %>
                 <span>パスワード</span><small>(確認用)</small>
               <% end %>
               <div class="col-md-9 align-self-center">
-                <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                <%= form.password_field :password_confirmation, autocomplete: "new-password", required: "required", class: "form-control" %>
               </div>
             </div>
 
             <hr>
 
             <div class="form-group m-0">
-              <%= form.submit "新規会員登録" ,class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
+              <%= form.submit class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
             </div>
           <% end %>
         </div>
@@ -81,4 +82,3 @@
     </div>
   </div>
 </div>
-

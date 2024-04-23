@@ -33,6 +33,16 @@
           </ul>
         </div>
       </div>
+      <% if @search_word.present? %>
+        <p class="h4 mb-4">
+          <span>「<%= @search_word %>」の検索結果</span>
+          <% if @users.present? %>
+            <span>（<%= @users.count %>件）</span>
+          <% else %>
+            <span>は見つかりませんでした</span>
+          <% end %>
+        </p>
+      <% end %>
       <div class="row">
         <%= render partial: "admin/users/summary", collection: @users, as: "user" %>
       </div>

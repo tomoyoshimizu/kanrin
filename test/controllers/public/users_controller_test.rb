@@ -6,8 +6,8 @@ class Public::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get following" do
-    get public_users_following_url
+  test "should get followee" do
+    get public_users_followee_url
     assert_response :success
   end
 
