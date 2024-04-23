@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     get "/about" => "homes#about"
     resources :users, only: [:index, :edit, :show, :update, :destroy] do
       member do
-        get "followings"
+        get "followees"
         get "followers"
         get "bookmarks"
         get "notifications"

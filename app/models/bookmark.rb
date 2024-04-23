@@ -17,7 +17,7 @@ class Bookmark < ApplicationRecord
   end
 
   def notification_path
-     user_path(user)
+    user_path(user)
   end
 
   def notification_user
