@@ -1,7 +1,14 @@
 <%= form_with(model: post) do |form| %>
   <%= render "public/shared/error_messages", resource: form.object %>
 
-  <%= form.hidden_field :project_id %>
+  <dl class="form-group form-row">
+    <dt class="col-md-3 col-form-label font-weight-normal">
+      投稿先プロジェクト
+    </dt>
+    <dd class="col-md-9 col-form-label">
+      <%= post.project.title %>
+    </dd>
+  </dl>
 
   <div class="form-group form-row">
     <%= form.label :image, class: "col-md-3 col-form-label" %>
