@@ -3,7 +3,8 @@ class Public::TagsController < ApplicationController
 
   def index
     @search_word = params[:search_word] || ""
-    @tags = @search_word.present? ? Tag.search(@search_word) : Tag.all
+    scoped_tags = @search_word.present? ? Tag.search(@search_word) : Tag.all
+    @tags = Tag.usage(scoped_tags)
     @count = @tags.count
   end
 

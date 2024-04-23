@@ -8,7 +8,7 @@ class Comment < ApplicationRecord
   has_one :notification, as: :notifiable, dependent: :destroy
 
   validates :body, presence: true
-  
+
   scope :valid, -> { joins(:user).where(user: {is_active: true}) }
 
   after_create do
@@ -21,5 +21,9 @@ class Comment < ApplicationRecord
 
   def notification_path
     post_path(self.post)
+  end
+
+  def notification_user
+    self.user
   end
 end

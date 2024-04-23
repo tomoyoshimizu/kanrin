@@ -1,2 +1,16 @@
-<h1>Public::Users#notifications</h1>
-<p>Find me in app/views/public/users/notifications.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-5 col-xl-4">
+      <div class="sticky-menu">
+        <%= render partial: "public/users/aside" %>
+      </div>
+    </div>
+    <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+      <% if @notifications.present? %>
+        <%= render partial: "public/notifications/summary", collection: @notifications, as: "notification" %>
+      <% else %>
+        <p class="h4 text-wbr text-center mb-4">新しい通知はありません</p>
+      <% end %>
+    </div>
+  </div>
+</div>

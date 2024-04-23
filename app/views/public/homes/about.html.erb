@@ -3,7 +3,7 @@
     <div class="col-12 col-lg-10 col-xl-8 mb-4">
       <div class="jumbotron bg-white">
         <h1 class="display-4">About Kanrin.</h1>
-        <p class="lead">「閑林-kanrin-」は新規登録することで誰でも利用可能な、創作活動の進捗を記録するSNSサイトです。</p>
+        <p class="lead">「閑林-kanrin-」は新規会員登録することで誰でも利用可能な、創作活動の進捗を記録するSNSサイトです。</p>
         <p class="lead">トレンド系SNSにありがちな評価やフォロワー数によるスコア付けはありません。世の喧騒から離れてもくもくと創作活動を楽しんでみませんか？</p>
         <% unless user_signed_in? %>
           <hr class="my-4">
@@ -15,7 +15,7 @@
             </div>
             <div class="col-6">
               <%= link_to new_user_registration_path, class: "btn btn-block btn-outline-success rounded-pill" do %>
-                新規登録
+                新規会員登録
               <% end %>
             </div>
           </div>

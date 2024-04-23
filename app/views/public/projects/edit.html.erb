@@ -2,8 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9 col-xl-8">
       <div class="card">
-        <div class="card-header">
-          <h1 class="h4 m-0">プロジェクトを編集</h1>
+        <div class="card-header d-flex justify-content-between align-items-baseline">
+          <h1 class="h4 m-0">プロジェクト編集</h1>
+          <p class="m-0"><small><span class="text-required">*</span>は必須項目です</small></p>
         </div>
         <div class="card-body">
           <%= render "public/projects/form", project: @project, tags: @tags %>
