@@ -34,9 +34,9 @@ class Public::SessionsController < Devise::SessionsController
   def is_active?
     @user = User.find_by(email: params[:user][:email])
     return unless @user && @user.valid_password?(params[:user][:password]) && !@user.is_active
-    render new_customer_registration_path
+    redirect_to user_session_path, alert: "このアカウントは停止されています"
   end
-  
+
   def guest_sign_in
     user = User.guest
     sign_in user

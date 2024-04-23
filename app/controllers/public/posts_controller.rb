@@ -18,8 +18,13 @@ class Public::PostsController < ApplicationController
   end
 
   def new
-    @new_post = Post.new
-    @new_post.project_id = params[:project]
+    project = Project.find_by(id: params[:project])
+    if project && project.user == current_user
+      @new_post = Post.new
+      @new_post.project_id = params[:project]
+    else
+      redirect_to projects_url
+    end
   end
 
   def edit
@@ -33,7 +38,7 @@ class Public::PostsController < ApplicationController
   def update
     if @post.update(post_params)
       @comments = @post.comments.valid
-      redirect_to post_url(@post)#, notice: "Post was successfully updated."
+      redirect_to post_url(@post)
     else
       render :edit, status: :unprocessable_entity
     end
