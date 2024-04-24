@@ -18,10 +18,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  scope :valid,   -> { where(is_active: true) }
-  scope :invalid, -> { where(is_active: false) }
-  scope :search,  -> (word){ where("name LIKE?", "%#{word}%") }
-  scope :desc,    -> { order(created_at: "DESC") }
+  scope :valid,         -> { where(is_active: true) }
+  scope :invalid,       -> { where(is_active: false) }
+  scope :searched_with, -> (word){ where("name LIKE?", "%#{word}%") }
+  scope :desc,          -> { order(created_at: "DESC") }
 
   has_one_attached :image
 

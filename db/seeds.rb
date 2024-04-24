@@ -6,62 +6,42 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require "json"
-
 ActiveStorage::AnalyzeJob.queue_adapter = :inline
 ActiveStorage::PurgeJob.queue_adapter = :inline
 
 if Rails.env.development? || Rails.env.test?
 
-  TEST_GMAIL_ACCOUNT_NAME = ENV["TEST_GMAIL_ACCOUNT_NAME"]
-  TEST_PASSWORD = ENV["TEST_PASSWORD"]
-  TEST_TELEPHONE_NUMBER = ENV["TEST_TELEPHONE_NUMBER"]
+  40.times {
 
-  File.open(Rails.root.join("app/assets/seeds", "initial_users.json")) do |file|
-    data = JSON.load(file)
-    data.each.with_index(1) do |user, i|
-      user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}+test#{i}@gmail.com"
-      user["telephone_number"] = TEST_TELEPHONE_NUMBER
-      user["password"] = TEST_PASSWORD
-      user["password_confirmation"] = TEST_PASSWORD
-      new_user = User.create(user)
-      new_user.image.attach(
-        io: File.open(Rails.root.join("app/assets/seeds", "images/user_#{i}.jpg")),
-        filename: "user_#{i}.jpg"
+    new_user = User.find_or_create_by!(email: Faker::Internet.unique.email) do |user|
+      user.name = Faker::Name.unique.name
+      user.telephone_number = Faker::Number.unique.leading_zero_number(digits: 11)
+      user.password = SecureRandom.urlsafe_base64
+      user.image.attach(
+        io: File.open(Rails.root.join("app/assets/images/user_placeholder.jpg")),
+        filename: "user_placeholder.jpg"
       )
     end
-  end
 
-  File.open(Rails.root.join("app/assets/seeds", "initial_projects.json")) do |file|
-    data = JSON.load(file)
-    Project.create(data)
-  end
+    new_project = new_user.projects.create!(
+      title: "テスト#{new_user.id}",
+      description: "#{new_user.name}が作成したプロジェクトです。"
+    )
 
-  File.open(Rails.root.join("app/assets/seeds", "initial_tags.json")) do |file|
-    data = JSON.load(file)
-    Tag.create(data)
-  end
+    new_project.posts.create!(
+      body: "#{new_user.name}の投稿です。",
+      working_minutes: rand(1..120)
+    )
 
-  File.open(Rails.root.join("app/assets/seeds", "initial_taggings.json")) do |file|
-    data = JSON.load(file)
-    Tagging.create(data)
-  end
+    rand(1..5).times {
+      new_tag = Tag.find_or_create_by!(name: Faker::Adjective.positive)
+      new_tag.taggings.find_or_create_by!(project_id: new_project.id)
+    }
 
-  File.open(Rails.root.join("app/assets/seeds", "initial_posts.json")) do |file|
-    data = JSON.load(file)
-    data.each.with_index(1) do |element, i|
-      new_element = Post.create(element)
-      new_element.image.attach(
-        io: File.open(Rails.root.join("app/assets/seeds", "images/post_#{i}.jpg")),
-        filename: "post_#{i}.jpg"
-      )
-    end
-  end
+  }
 
 end
 
-Admin.create(
-  email: 'admin@mail',
-  password: 'administrator',
-  password_confirmation: "administrator"
-)
+Admin.find_or_create_by!(email: "admin@mail.com") do |admin|
+  admin.password = "administrator"
+end

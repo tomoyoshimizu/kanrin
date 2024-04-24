@@ -23,7 +23,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   background-image: url("../images/kinda-jean.png");
-  min-width: 320px;
+  min-width: 375px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

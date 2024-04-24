@@ -61,6 +61,10 @@ group :test do
   gem "webdrivers"
 end
 
+group :development, :test do
+  gem "faker"
+end
+
 group :production do
   gem "mysql2"
 end
@@ -73,6 +77,8 @@ gem "devise"
 gem "enum_help"
 
 gem "dotenv-rails"
+
+gem "kaminari", "~> 1.2.1"
 
 gem "net-smtp"
 gem "net-pop"

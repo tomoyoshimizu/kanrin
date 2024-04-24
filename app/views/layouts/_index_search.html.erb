@@ -31,7 +31,7 @@
   <p class="h4 mb-4">
     <span>「<%= @search_word %>」の<%= I18n.t(controller_name, scope: ["activerecord", "controllers"]) %>検索結果</span>
     <% if @count %>
-      <span>（<%= @count %>件）</span>
+      <span>（全<%= @count %>件）</span>
     <% else %>
       <span>は見つかりませんでした</span>
     <% end %>

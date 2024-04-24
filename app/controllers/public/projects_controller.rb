@@ -7,9 +7,10 @@ class Public::ProjectsController < ApplicationController
 
   def index
     @search_word = params[:search_word] || ""
-    @projects = Project.visible.valid.desc
-    @projects = @projects.search(@search_word) if @search_word.present?
-    @count = @projects.count
+    scoped_projects = Project.visible.valid.desc
+    scoped_projects = scoped_projects.searched_with(@search_word) if @search_word.present?
+    @projects = scoped_projects.page(params[:page]).per(6)
+    @count = scoped_projects.length
   end
 
   def create
@@ -33,6 +34,7 @@ class Public::ProjectsController < ApplicationController
   end
 
   def show
+    @posts = @project.posts.desc.page(params[:page]).per(6)
   end
 
   def update

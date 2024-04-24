@@ -48,11 +48,11 @@
       </div>
     </div>
     <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-      <% unless @project.posts.present? %>
+      <% if @posts.present? %>
+        <%= render partial: "public/posts/summary", collection: @posts, as: "post" %>
+        <%= paginate @posts %>
+      <% elsif %>
         <p class="h4 text-wbr text-center mb-3">まだプロジェクトに<wbr>投稿がありません</p>
-      <% end %>
-      <% if @project.posts.present? %>
-        <%= render partial: "public/posts/summary", collection: @project.posts.order(updated_at: :desc), as: "post" %>
       <% end %>
     </div>
   </div>

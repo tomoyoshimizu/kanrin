@@ -5,10 +5,11 @@ class Admin::UsersController < ApplicationController
   def index
     @search_word = params[:search_word] || ""
     @is_active = params[:is_active] || ""
-    @users = User.desc
-    @users = @users.valid if @is_active == "true"
-    @users = @users.invalid if @is_active == "false"
-    @users = @users.search(@search_word) if @search_word.present?
+    scoped_users = User.desc
+    scoped_users = scoped_users.valid if @is_active == "true"
+    scoped_users = scoped_users.invalid if @is_active == "false"
+    scoped_users = scoped_users.searched_with(@search_word) if @search_word.present?
+    @users = scoped_users.page(params[:page]).per(6)
   end
 
   def freeze

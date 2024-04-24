@@ -25,7 +25,7 @@
           フォロー
         <% end %>
       </li>
-      <% if @user == current_user && @user.followers.count > 0 %>
+      <% if @user == current_user && @user.followers.valid.count > 0 %>
         <li class="nav-item">
           <%= link_to followers_user_path(user), class: helper_nav_link_class("followers") do %>
             フォロワー
