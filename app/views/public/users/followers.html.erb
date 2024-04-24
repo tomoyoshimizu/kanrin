@@ -5,6 +5,7 @@
       <div class="row">
         <%= render partial: "public/users/summary", collection: @users, as: "user" %>
       </div>
+      <%= paginate @users %>
     </div>
   </div>
 </div>

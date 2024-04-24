@@ -38,7 +38,7 @@
         <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
       </div>
       <p class="card-text text-muted text-mini">
-        <% unless project.last_posted_at == project.created_at %>
+        <% if project.posts.present? %>
           <span>更新 <%= project.last_posted_at.strftime("%Y/%m/%d") %>｜</span>
         <% end %>
         <span>作成 <%= project.created_at.strftime("%Y/%m/%d") %></span>

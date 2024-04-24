@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
   before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.visible.valid.posted_by(current_user.followees).desc
+    @posts = Post.visible.valid.posted_by(current_user.followees).desc.page(params[:page]).per(6)
   end
 
   def create

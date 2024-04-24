@@ -8,6 +8,7 @@
     <div class="col-12 col-md-10 col-lg-7 col-xl-6">
       <% if @posts.present? %>
         <%= render partial: "public/posts/summary", collection: @posts, as: "post" %>
+        <%= paginate @posts %>
       <% else %>
         <p class="h4 text-wbr text-center mb-4">ユーザーをフォローすると<wbr>投稿が表示されます</p>
         <div class="row justify-content-center">

@@ -7,10 +7,10 @@ class Project < ApplicationRecord
   has_many :tags, through: :taggings
   has_many :posts, dependent: :destroy
 
-  scope :visible, -> { where(visibility: 0) }
-  scope :valid,   -> { joins(:user).where(user: {is_active: true}) }
-  scope :search,  -> (word){ where("title LIKE?", "%#{word}%") }
-  scope :desc,    -> { order(created_at: "DESC") }
+  scope :visible,       -> { where(visibility: 0) }
+  scope :valid,         -> { joins(:user).where(user: {is_active: true}) }
+  scope :searched_with, -> (word){ where("title LIKE?", "%#{word}%") }
+  scope :desc,          -> { order(created_at: "DESC") }
 
   enum status: { in_progress: 0, completed: 1, pending: 2 }
   enum visibility: { visible: 0, hidden: 1 }
@@ -22,19 +22,11 @@ class Project < ApplicationRecord
   end
 
   def last_posted_at
-    if posts.present?
-      posts.last.created_at
-    else
-      created_at
-    end
+    posts.last.created_at
   end
 
   def total_working_minutes
     posts.pluck(:working_minutes).compact.sum
-  end
-
-  def self.sort_last_posted(projects)
-    projects.sort_by{|project| project.last_posted_at }.reverse
   end
 
   def self.get_thumbnail(project)

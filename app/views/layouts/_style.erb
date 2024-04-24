@@ -157,6 +157,47 @@
   }
 }
 
+/* ページネーション（共通） */
+.pagination{
+  gap: 0.25em;
+}
+.pagination > .page-item > .page-link{
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  padding: 0 0.25em;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: none;
+  color: var(--color-secondary);
+  background-color: inherit;
+  border-radius: 50%;
+}
+.pagination > .page-item.disabled  > .page-link{
+  width: 1em;
+  padding: 0;
+}
+.pagination > .page-item > .page-link:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.pagination > .page-item.active > .page-link{
+  color: #fff;
+  background-color: var(--color-secondary);
+}
+@media screen and (min-width: 576px) {
+  .pagination{
+    gap: 0.5em;
+  }
+  .pagination > .page-item > .page-link{
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    padding: 0 0.5em;
+  }
+}
+
 /* リスト（共通） */
 .list-data{
   display: grid;
