@@ -8,7 +8,7 @@ class Public::CommentsController < ApplicationController
     @post = comment.post
     @new_comment = comment.save ? Comment.new : comment
     @comments = @post.comments.valid
-    render "replace_comments"#, notice: "Comment was successfully created."
+    render "replace_comments"
   end
 
   def destroy
@@ -16,7 +16,7 @@ class Public::CommentsController < ApplicationController
     @new_comment = Comment.new
     @comments = @post.comments.valid
     @comment.destroy
-    render "replace_comments"#, notice: "Comment was successfully destroyed."
+    render "replace_comments"
   end
 
   private

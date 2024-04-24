@@ -3,7 +3,8 @@ class Public::TagsController < ApplicationController
 
   def index
     @search_word = params[:search_word] || ""
-    scoped_tags = @search_word.present? ? Tag.searched_with(@search_word).usage : Tag.usage
+    scoped_tags = Tag.usage
+    scoped_tags = scoped_tags.searched_with(@search_word) if @search_word.present?
     @tags = scoped_tags.page(params[:page])
     @count = scoped_tags.length
   end
