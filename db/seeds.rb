@@ -18,8 +18,9 @@ if Rails.env.development? || Rails.env.test?
       user.telephone_number = Faker::Number.unique.leading_zero_number(digits: 11)
       user.password = SecureRandom.urlsafe_base64
       user.image.attach(
-        io: File.open(Rails.root.join("app/assets/images/user_placeholder.jpg")),
-        filename: "user_placeholder.jpg"
+        io: File.open(Rails.root.join("app/assets/images/user_placeholder.png")),
+        filename: "user_placeholder.png",
+        content_type: "image/png"
       )
     end
 

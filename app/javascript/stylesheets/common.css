@@ -33,3 +33,7 @@ body {
 main{
   flex: 1;
 }
+
+.top{
+  background-image: url("../images/bg_kanrin_top");
+}
