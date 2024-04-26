@@ -34,7 +34,7 @@ class Project < ApplicationRecord
     if target.present?
       target.image.variant(resize_to_fill: [640, 360]).processed
     else
-      "https://placehold.jp/640x360.png"
+      "post_placeholder"
     end
   end
 end

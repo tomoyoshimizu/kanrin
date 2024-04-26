@@ -44,9 +44,9 @@ class User < ApplicationRecord
   def get_image(width, height)
     unless image.attached?
       image.attach(
-        io: File.open(Rails.root.join("app/assets/images/user_placeholder.jpg")),
-        filename: "user_placeholder.jpg",
-        content_type: "image/jpeg"
+        io: File.open(Rails.root.join("app/assets/images/user_placeholder.png")),
+        filename: "user_placeholder.png",
+        content_type: "image/png"
       )
     end
     image.variant(resize_to_fill: [width, height]).processed

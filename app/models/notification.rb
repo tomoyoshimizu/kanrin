@@ -4,7 +4,7 @@ class Notification < ApplicationRecord
   belongs_to :notifiable, polymorphic: true
 
   scope :unread, -> { where(is_read: false) }
-  scope :desc, -> { order(created_at: "DESC") }
+  scope :desc,  -> { order(created_at: "DESC") }
 
   def message
     notifiable.notification_message
