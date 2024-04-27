@@ -9,7 +9,11 @@
           <%= render "public/bookmarks/btn", project: project %>
         </div>
       <% end %>
-      <%= image_tag project.get_thumbnail(640, 360), class: "w-100" %>
+      <% if project.has_thumnbnail? %>
+        <%= image_tag project.get_thumbnail(640, 360), class: "w-100" %>
+      <% else %>
+        <%= image_tag asset_path("post_placeholder.png"), class: "w-100" %>
+      <% end %>
     </div>
     <div class="card-body">
       <%= link_to project_path(project), class: "text-reset font-weight-bold stretched-link" do %>

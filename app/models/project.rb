@@ -37,12 +37,12 @@ class Project < ApplicationRecord
     posts.pluck(:working_minutes).compact.sum
   end
 
+  def has_thumnbnail?
+    posts.desc.find { |post| post.image.attached? }
+  end
+
   def get_thumbnail(width, height)
     target = posts.desc.find { |post| post.image.attached? }
-    if target.present?
-      target.image.variant(resize_to_fill: [width, height]).processed
-    else
-      asset_path("post_placeholder.png")
-    end
+    target.image.variant(resize_to_fill: [width, height]).processed
   end
 end

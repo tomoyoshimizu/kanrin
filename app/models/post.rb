@@ -14,10 +14,6 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
   def get_image(width, height)
-    if image.attached?
-      image.variant(resize_to_limit: [640, 360]).processed
-    else
-      asset_path("post_placeholder.png")
-    end
+    image.variant(resize_to_limit: [width, height]).processed
   end
 end
