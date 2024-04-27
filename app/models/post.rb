@@ -17,7 +17,7 @@ class Post < ApplicationRecord
     if image.attached?
       image.variant(resize_to_limit: [640, 360]).processed
     else
-      "post_placeholder"
+      asset_path("post_placeholder")
     end
   end
 end
