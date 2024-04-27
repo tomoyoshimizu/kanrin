@@ -14,7 +14,7 @@
               <%= form.label :image, class: "col-md-3 col-form-label" %>
               <div class="col-md-9">
                 <div id="wrap-image-preview" class="bg-light icon-box mb-2">
-                  <%= image_tag asset_path("user_placeholder"), alt: "プレビュー", id: "image-preview" %>
+                  <%= image_tag asset_path("user_placeholder.png"), alt: "プレビュー", id: "image-preview" %>
                 </div>
                 <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
               </div>
@@ -85,4 +85,4 @@
     </div>
   </div>
 </div>
-<%= render "layouts/image_preview", image: asset_path("user_placeholder") %>
+<%= render "layouts/image_preview", image: asset_path("user_placeholder.png") %>

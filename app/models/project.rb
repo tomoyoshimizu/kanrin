@@ -42,7 +42,7 @@ class Project < ApplicationRecord
     if target.present?
       target.image.variant(resize_to_fill: [width, height]).processed
     else
-      asset_path("post_placeholder")
+      asset_path("post_placeholder.png")
     end
   end
 end
