@@ -1,7 +1,8 @@
 class Public::PostsController < ApplicationController
   before_action :get_post_matched_id
-  before_action :authenticate_user!,        only: [:index, :create, :new, :edit, :update, :destroy]
-  before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!,                only: [:index, :create, :new, :edit, :update, :destroy]
+  before_action :prohibit_illegal_access,           only: [:edit, :update, :destroy]
+  before_action :prohibit_access_to_hidden_project, only: [:show]
 
   def index
     @posts = Post.visible.valid.posted_by(current_user.followees).desc.page(params[:page]).per(6)
@@ -59,8 +60,14 @@ class Public::PostsController < ApplicationController
       end
     end
 
-    def prohibited_illegal_access
+    def prohibit_illegal_access
       redirect_to user_path(current_user) unless @post.user == current_user
+    end
+    
+    def prohibit_access_to_hidden_project
+      if @post.project.visibility == "hidden"
+        redirect_to posts_path unless admin_signed_in? || @post.user == current_user
+      end
     end
 
     def post_params

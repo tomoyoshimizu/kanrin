@@ -35,7 +35,7 @@ class Public::UsersController < ApplicationController
 
   def show
     scoped_projects = @user.projects.desc
-    scoped_projects = scoped_projects.visible unless @user == current_user
+    scoped_projects = scoped_projects.visible unless admin_signed_in? || @user == current_user
     @projects = scoped_projects.page(params[:page]).per(6)
   end
 
