@@ -14,9 +14,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 col-lg-4 mb-4">
-      <%= link_to user_path(@user), method: :delete, data: {confirm: "本当に退会しますか？"}, class: "btn btn-block btn-danger rounded-pill" do %>
-        退会する
-      <% end %>
+      <%= link_to "退会する", user_path(@user), method: :delete, data: {confirm: "本当に退会しますか？"}, class: "btn btn-block btn-danger rounded-pill" %>
     </div>
   </div>
 </div>

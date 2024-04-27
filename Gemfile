@@ -24,7 +24,7 @@ gem "jbuilder", "~> 2.7"
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
+gem "image_processing", "~> 1.2"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -61,6 +61,10 @@ group :test do
   gem "webdrivers"
 end
 
+group :development, :test do
+  gem "faker"
+end
+
 group :production do
   gem "mysql2"
 end
@@ -73,6 +77,8 @@ gem "devise"
 gem "enum_help"
 
 gem "dotenv-rails"
+
+gem "kaminari", "~> 1.2.1"
 
 gem "net-smtp"
 gem "net-pop"

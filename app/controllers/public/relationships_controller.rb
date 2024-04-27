@@ -16,9 +16,7 @@ class Public::RelationshipsController < ApplicationController
     def get_user_matched_id
       if params[:user_id]
         @user = User.find_by(id: params[:user_id])
-        if @user.nil? || !@user.is_active
-          redirect_to users_path
-        end
+        redirect_to users_path if @user.nil? || !@user.is_active
       end
     end
 end

@@ -1,25 +1,61 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8 mb-4">
-      <div class="jumbotron bg-white">
-        <h1 class="display-4">About Kanrin.</h1>
-        <p class="lead">「閑林-kanrin-」は新規会員登録することで誰でも利用可能な、創作活動の進捗を記録するSNSサイトです。</p>
-        <p class="lead">トレンド系SNSにありがちな評価やフォロワー数によるスコア付けはありません。世の喧騒から離れてもくもくと創作活動を楽しんでみませんか？</p>
-        <% unless user_signed_in? %>
-          <hr class="my-4">
-          <div class="row">
-            <div class="col-6">
-              <%= link_to new_user_session_path, class: "btn btn-block btn-outline-secondary rounded-pill" do %>
-                ログイン
-              <% end %>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2 class="h4 m-0">サービス概要</h2>
+        </div>
+        <div class="card-body">
+          <p class="lead">「閑林-KanRin-」は新規会員登録することで誰でも利用可能な、創作活動の進捗を記録するSNSサイトです。</p>
+          <p class="lead">評価やフォロワー数によるスコア付けはありません。世の喧騒から離れてもくもくと創作活動を楽しんでみませんか？</p>
+          <% unless user_signed_in? %>
+            <hr class="my-4">
+            <div class="row">
+              <div class="col-12">
+                <%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-lg btn-block btn-outline-success rounded-pill" %>
+              </div>
+              <div class="col-12 col-sm-6 mt-3">
+                <%= link_to "ログイン", new_user_session_path, class: "btn btn-block btn-outline-secondary rounded-pill" %>
+              </div>
+              <div class="col-12 col-sm-6 mt-3">
+                <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post, class: "btn btn-block btn-outline-primary rounded-pill" %>
+              </div>
             </div>
-            <div class="col-6">
-              <%= link_to new_user_registration_path, class: "btn btn-block btn-outline-success rounded-pill" do %>
-                新規会員登録
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="h4 m-0">利用規約</h2>
+        </div>
+        <div class="card-body">
+          <p>当サービスは、利用者にとってより良い体験を提供するとともに、社会的責任のあるサービス運営のために以下のように利用規約を制定します。</p>
+          <h3 class="h5 font-weight-bold">規定</h3>
+          <p>当規約は当サービスが独自に規定したものです。社会や環境の変化などに応じて、予告なく変更する場合があります。</p>
+          <p>禁止の対象となる行為や投稿を発見した場合、当サービスの運営によってアカウントを停止する措置を行うことがあります。その理由について、お問い合わせいただいてもお答えできませんのでご了承ください。</p>
+          <p>また、当利用規約に定めない事柄についても、日本国が定める法律上禁止されていることは原則禁止といたします。当サービスを利用した活動によって刑事罰が発生したり訴訟に発展した場合、利用者個人の責任として、当サービスは責任を負わないものとします。当サービスに限らず、インターネットを利用する場合、自身の行為が社会通念上問題ないかよく検討した上でご利用頂きますようお願い申し上げます。</p>
+          <h3 class="h5 font-weight-bold">禁止行為</h3>
+          <ul>
+            <li>誹謗中傷・名誉棄損をする行為。</li>
+            <li>不適切な宣伝・勧誘をする行為。</li>
+            <li>理由もなく個人が大量のアカウントを取得する行為。</li>
+            <li>悪意をもって事実と異なる情報を発信する行為。</li>
+            <li>なりすまし行為・閲覧者に情報を誤認させ第三者に危害を与える可能性のある行為。</li>
+            <li>プログラムを使って作品を収集したり、サーバーに極端な負荷をかける行為。</li>
+            <li>当サービスおよび当サービス利用者に対して、不利益を生じさせる行為。</li>
+            <li>外部サービスを介して、当サービスの利用者本人や作品を引用する形で、誹謗中傷や名誉棄損する行為。</li>
+          </ul>
+          <h3 class="h5 font-weight-bold">禁止投稿</h3>
+          <ul>
+            <li>直接的な性器や性行為の描写、もしくは性行為を想起させるものを表現した作品。</li>
+            <li>過度に暴力的・グロテスクな描写、暴力的意図を以て生命の尊厳に対する冒涜的表現を含む作品。</li>
+            <li>意図的に差別やヘイトを助長する表現を含む作品。</li>
+            <li>反社会的行為を助長したり、公序良俗に反する表現を含む作品。</li>
+            <li>AI（人工知能）を用いて生成した作品のうち、生成に使用したリソースの権利の正当性を、投稿者が責任をもって立証できない作品。</li>
+          </ul>
+          <h3 class="h5 font-weight-bold">附則</h3>
+          <p>2024年4月1日　制定</p>
+        </div>
       </div>
     </div>
   </div>

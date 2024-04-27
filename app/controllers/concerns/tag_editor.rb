@@ -26,7 +26,7 @@ module TagEditor
       tag_list.each do |item|
         tag = Tag.find_by(name: item)
         Tagging.find_by(project_id: project.id, tag_id: tag.id).destroy
-        if tag.projects.count == 0
+        if tag.projects.count.zero?
           tag.destroy
         end
       end

@@ -5,6 +5,7 @@
       <div class="h4">
         <%= render partial: "public/tags/tag", collection: @tags, as: "tag" %>
       </div>
+      <%= paginate @tags %>
     </div>
   </div>
 </div>

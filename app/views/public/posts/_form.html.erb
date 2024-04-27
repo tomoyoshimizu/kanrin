@@ -9,11 +9,15 @@
       <%= post.project.title %>
     </dd>
   </dl>
+  <%= form.hidden_field :project_id %>
 
   <div class="form-group form-row">
     <%= form.label :image, class: "col-md-3 col-form-label" %>
     <div class="col-md-9">
-      <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+      <div id="wrap-image-preview" class="bg-light image-box mb-2">
+        <%= image_tag post.get_image(640, 360), alt: "プレビュー", id: "image-preview" %>
+      </div>
+      <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
     </div>
   </div>
 
@@ -43,3 +47,4 @@
   </div>
 
 <% end %>
+<%= render "layouts/image_preview", image: post.get_image(640, 360) %>

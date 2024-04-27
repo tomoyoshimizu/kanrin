@@ -18,10 +18,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  scope :valid,   -> { where(is_active: true) }
-  scope :invalid, -> { where(is_active: false) }
-  scope :search,  -> (word){ where("name LIKE?", "%#{word}%") }
-  scope :desc,    -> { order(created_at: "DESC") }
+  scope :valid,         -> { where(is_active: true) }
+  scope :invalid,       -> { where(is_active: false) }
+  scope :searched_with, -> (word) { where("name LIKE?", "%#{word}%") }
+  scope :desc,          -> { order(created_at: "DESC") }
 
   has_one_attached :image
 
@@ -37,22 +37,26 @@ class User < ApplicationRecord
     end
   end
 
-  def guest_user?
-    email == GUEST_USER_EMAIL
+  def is_guest_user?
+    email.eql?(GUEST_USER_EMAIL)
+  end
+
+  def has_follower?
+    followers.valid.count > 0
+  end
+
+  def is_followed_by?(user)
+    followers.include?(user)
   end
 
   def get_image(width, height)
     unless image.attached?
       image.attach(
-        io: File.open(Rails.root.join("app/assets/images/user_placeholder.jpg")),
-        filename: "user_placeholder.jpg",
-        content_type: "image/jpeg"
+        io: File.open(Rails.root.join("app/assets/images/user_placeholder.png")),
+        filename: "user_placeholder.png",
+        content_type: "image/png"
       )
     end
     image.variant(resize_to_fill: [width, height]).processed
-  end
-
-  def is_followed_by?(user)
-    followers.include?(user)
   end
 end

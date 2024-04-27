@@ -10,19 +10,13 @@
   <div class="card-footer bg-light p-0">
     <ul class="nav nav-fill">
       <li class="nav-item">
-        <%= link_to users_path(helper_index_link_params(@search_word)), class: helper_index_link_class("users") do %>
-          ユーザー
-        <% end %>
+        <%= link_to "ユーザー", users_path(helper_index_link_params(@search_word)), class: helper_index_link_class("users") %>
       </li>
       <li class="nav-item">
-        <%= link_to projects_path(helper_index_link_params(@search_word)), class: helper_index_link_class("projects") do %>
-          プロジェクト
-        <% end %>
+        <%= link_to "プロジェクト", projects_path(helper_index_link_params(@search_word)), class: helper_index_link_class("projects") %>
       </li>
       <li class="nav-item">
-        <%= link_to tags_path(helper_index_link_params(@search_word)), class: helper_index_link_class("tags") do %>
-          タグ
-        <% end %>
+        <%= link_to "タグ", tags_path(helper_index_link_params(@search_word)), class: helper_index_link_class("tags") %>
       </li>
     </ul>
   </div>
@@ -31,7 +25,7 @@
   <p class="h4 mb-4">
     <span>「<%= @search_word %>」の<%= I18n.t(controller_name, scope: ["activerecord", "controllers"]) %>検索結果</span>
     <% if @count %>
-      <span>（<%= @count %>件）</span>
+      <span>（全<%= @count %>件）</span>
     <% else %>
       <span>は見つかりませんでした</span>
     <% end %>

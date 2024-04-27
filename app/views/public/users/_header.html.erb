@@ -7,7 +7,9 @@
       <div class="ml-md-3 w-100">
         <div class="d-flex flex-wrap align-items-center mb-3">
           <h3 class="h5 font-weight-bold"><%= user.name %></h3>
-          <div class="ml-auto"><%= render "public/relationships/btn", user: @user %></div>
+          <div class="ml-auto">
+            <%= render "public/users/btn", user: @user %>
+          </div>
         </div>
         <p><%= user.description %></p>
       </div>
@@ -16,26 +18,18 @@
   <div class="card-footer bg-light p-0">
     <ul class="nav nav-fill">
       <li class="nav-item">
-        <%= link_to user_path(user), class: helper_nav_link_class("show") do %>
-          プロジェクト
-        <% end %>
+        <%= link_to "プロジェクト", user_path(user), class: helper_nav_link_class("show") %>
       </li>
       <li class="nav-item">
-        <%= link_to followees_user_path(user), class: helper_nav_link_class("followees") do %>
-          フォロー
-        <% end %>
+        <%= link_to "フォロー", followees_user_path(user), class: helper_nav_link_class("followees") %>
       </li>
-      <% if @user == current_user && @user.followers.count > 0 %>
+      <% if @user.eql?(current_user) && @user.has_follower? %>
         <li class="nav-item">
-          <%= link_to followers_user_path(user), class: helper_nav_link_class("followers") do %>
-            フォロワー
-          <% end %>
+          <%= link_to "フォロワー", followers_user_path(user), class: helper_nav_link_class("followers") %>
         </li>
       <% end %>
       <li class="nav-item">
-        <%= link_to bookmarks_user_path(user), class: helper_nav_link_class("bookmarks") do %>
-          ブックマーク
-        <% end %>
+        <%= link_to "ブックマーク", bookmarks_user_path(user), class: helper_nav_link_class("bookmarks") %>
       </li>
     </ul>
   </div>

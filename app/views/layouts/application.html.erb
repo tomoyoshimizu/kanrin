@@ -8,14 +8,13 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= render "layouts/style" %>
   </head>
 
   <body>
     <header>
       <%= render "layouts/header" %>
     </header>
-    <main class="py-4">
+    <main class="main">
       <%= yield %>
     </main>
     <footer class="bg-dark">

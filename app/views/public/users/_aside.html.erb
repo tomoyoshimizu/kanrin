@@ -7,9 +7,9 @@
     <p class="card-text text-twoline">
       <small><%= current_user.description %></small>
     </p>
-    <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-outline-secondary btn-bg-white rounded-pill card-another-link" %>
+    <%= render "public/users/btn", user: current_user %>
   </div>
 </div>
-<%= link_to new_project_path, class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" do %>
-  新規プロジェクト作成
-<% end %>
+<div class="mb-4">
+  <%= link_to "新規プロジェクト作成", new_project_path, class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill" %>
+</div>

@@ -4,17 +4,17 @@
       <div class="project-status">
         <%= render "public/projects/status", status: project.status %>
       </div>
-      <% unless project.user == current_user %>
+      <% unless project.user.eql?(current_user) %>
         <div class="project-bookmark">
           <%= render "public/bookmarks/btn", project: project %>
         </div>
       <% end %>
-      <%= image_tag Project.get_thumbnail(project), class: "w-100" %>
+      <%= image_tag project.get_thumbnail(640, 360), class: "w-100" %>
     </div>
     <div class="card-body">
       <%= link_to project_path(project), class: "text-reset font-weight-bold stretched-link" do %>
         <h3 class="card-title h5 font-weight-bold text-oneline">
-          <% if project.visibility == "hidden" %>
+          <% unless project.is_visible? %>
             <span class="svg-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <path fill="#192323" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/>
@@ -24,7 +24,7 @@
           <%= project.title %>
         </h3>
       <% end %>
-      <% unless controller_name == "users" && params[:id].to_i == project.user_id %>
+      <% unless controller_name.eql?("users") && project.user_id.eql?(params[:id].to_i) %>
         <p class="card-text card-another-link">
           <%= render "public/users/link", user: project.user %>
         </p>
@@ -38,7 +38,7 @@
         <%= render partial: "public/tags/tag", collection: project.tags, as: "tag" %>
       </div>
       <p class="card-text text-muted text-mini">
-        <% unless project.last_posted_at == project.created_at %>
+        <% if project.posts.present? %>
           <span>更新 <%= project.last_posted_at.strftime("%Y/%m/%d") %>｜</span>
         <% end %>
         <span>作成 <%= project.created_at.strftime("%Y/%m/%d") %></span>

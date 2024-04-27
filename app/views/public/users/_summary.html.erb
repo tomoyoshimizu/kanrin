@@ -18,7 +18,7 @@
     <% if user_signed_in? || admin_signed_in? %>
       <div class="card-footer">
         <div class="card-another-link">
-          <%= render "public/relationships/btn", user: user %>
+          <%= render "public/users/btn", user: user %>
         </div>
       </div>
     <% end %>
