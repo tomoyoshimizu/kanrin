@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  scope :valid, -> { joins(:user).where(user: {is_active: true}) }
+  scope :valid, -> { joins(:user).where(user: { is_active: true }) }
 
   after_create do
     create_notification(user_id: self.project.user_id) unless self.user_id.eql?(self.project.user_id)

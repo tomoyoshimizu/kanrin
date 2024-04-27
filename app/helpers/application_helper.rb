@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def helper_index_link_params(is_active)
-    {search_word: @search_word} if @search_word.present?
+    { search_word: @search_word } if @search_word.present?
   end
 
   def helper_index_link_class(name)

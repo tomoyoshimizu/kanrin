@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   scope :valid,         -> { where(is_active: true) }
   scope :invalid,       -> { where(is_active: false) }
-  scope :searched_with, -> (word){ where("name LIKE?", "%#{word}%") }
+  scope :searched_with, -> (word) { where("name LIKE?", "%#{word}%") }
   scope :desc,          -> { order(created_at: "DESC") }
 
   has_one_attached :image

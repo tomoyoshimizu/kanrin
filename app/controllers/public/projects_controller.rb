@@ -30,7 +30,7 @@ class Public::ProjectsController < ApplicationController
   end
 
   def edit
-    @tags = @project.tags.map{|tag| tag.name}.join(",")
+    @tags = @project.tags.map { |tag| tag.name }.join(",")
   end
 
   def show

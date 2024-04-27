@@ -12,7 +12,6 @@ ActiveStorage::PurgeJob.queue_adapter = :inline
 if Rails.env.development? || Rails.env.test?
 
   40.times {
-
     new_user = User.find_or_create_by!(email: Faker::Internet.unique.email) do |user|
       user.name = Faker::Name.unique.name
       user.telephone_number = Faker::Number.unique.leading_zero_number(digits: 11)
@@ -38,7 +37,6 @@ if Rails.env.development? || Rails.env.test?
       new_tag = Tag.find_or_create_by!(name: Faker::Adjective.positive)
       new_tag.taggings.find_or_create_by!(project_id: new_project.id)
     }
-
   }
 
 end

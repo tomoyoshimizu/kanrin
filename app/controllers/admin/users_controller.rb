@@ -6,10 +6,10 @@ class Admin::UsersController < ApplicationController
     @search_word = params[:search_word] || ""
     @is_active = params[:is_active] || ""
     scoped_users = case @is_active
-      when "true"  then User.desc.valid
-      when "false" then User.desc.invalid
-      else User.desc
-      end
+                   when "true"  then User.desc.valid
+                   when "false" then User.desc.invalid
+                   else User.desc
+    end
     scoped_users = scoped_users.searched_with(@search_word) if @search_word.present?
     @users = scoped_users.page(params[:page]).per(6)
   end

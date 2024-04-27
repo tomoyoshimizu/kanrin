@@ -8,8 +8,8 @@ class Project < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   scope :visible,       -> { where(visibility: 0) }
-  scope :valid,         -> { joins(:user).where(user: {is_active: true}) }
-  scope :searched_with, -> (word){ where("title LIKE?", "%#{word}%") }
+  scope :valid,         -> { joins(:user).where(user: { is_active: true }) }
+  scope :searched_with, -> (word) { where("title LIKE?", "%#{word}%") }
   scope :desc,          -> { order(created_at: "DESC") }
 
   enum status: { in_progress: 0, completed: 1, pending: 2 }
