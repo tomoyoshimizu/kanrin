@@ -19,9 +19,7 @@ class Public::TagsController < ApplicationController
     def get_tag_matched_id
       if params[:id]
         @tag = Tag.find(params[:id])
-        if @tag.nil?
-          redirect_to tags_path
-        end
+        redirect_to tags_path if @tag.nil?
       end
     end
 end

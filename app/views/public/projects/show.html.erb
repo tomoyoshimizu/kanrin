@@ -6,7 +6,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <%= render "public/projects/status", status: @project.status %>
-              <% unless @project.user == current_user %>
+              <% unless @project.user.eql?(current_user) %>
                 <%= render "public/bookmarks/btn", project: @project %>
               <% end %>
             </div>
@@ -23,27 +23,21 @@
               <% end %>
             </p>
           </div>
-          <% if current_user == @project.user %>
+          <% if @project.user.eql?(current_user) %>
             <div class="card-footer">
               <div class="row">
-                  <div class="col-6">
-                    <%= link_to edit_project_path(@project), class: "btn btn-sm btn-block btn-outline-secondary btn-bg-white rounded-pill" do %>
-                      編集
-                    <% end %>
-                  </div>
-                  <div class="col-6">
-                    <%= link_to project_path(@project), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-sm btn-block btn-outline-danger btn-bg-white rounded-pill" do %>
-                      削除
-                    <% end %>
-                  </div>
+                <div class="col-6">
+                  <%= link_to "編集", edit_project_path(@project), class: "btn btn-sm btn-block btn-outline-secondary btn-bg-white rounded-pill" %>
+                </div>
+                <div class="col-6">
+                  <%= link_to "削除", project_path(@project), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-sm btn-block btn-outline-danger btn-bg-white rounded-pill" %>
+                </div>
               </div>
             </div>
           <% end %>
         </div>
-        <% if current_user == @project.user && @project.status != "completed" %>
-          <%= link_to new_post_path(project: @project), class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" do %>
-            投稿する
-          <% end %>
+        <% if @project.user.eql?(current_user) && !@project.is_completed? %>
+          <%= link_to "投稿する", new_post_path(project: @project), class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" %>
         <% end %>
       </div>
     </div>

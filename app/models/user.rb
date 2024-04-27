@@ -37,8 +37,16 @@ class User < ApplicationRecord
     end
   end
 
-  def guest_user?
-    email == GUEST_USER_EMAIL
+  def is_guest_user?
+    email.eql?(GUEST_USER_EMAIL)
+  end
+
+  def has_follower?
+    followers.valid.count > 0
+  end
+
+  def is_followed_by?(user)
+    followers.include?(user)
   end
 
   def get_image(width, height)
@@ -50,9 +58,5 @@ class User < ApplicationRecord
       )
     end
     image.variant(resize_to_fill: [width, height]).processed
-  end
-
-  def is_followed_by?(user)
-    followers.include?(user)
   end
 end

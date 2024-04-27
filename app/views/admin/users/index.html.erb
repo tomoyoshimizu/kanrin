@@ -16,19 +16,13 @@
         <div class="card-footer bg-light p-0">
           <ul class="nav nav-fill">
             <li class="nav-item">
-              <%= link_to admin_users_path(helper_nav_link_params("")), class: helper_nav_link_class("") do %>
-                すべて
-              <% end %>
+              <%= link_to "すべて", admin_users_path(helper_nav_link_params("")), class: helper_nav_link_class("") %>
             </li>
             <li class="nav-item">
-              <%= link_to admin_users_path(helper_nav_link_params("true")), class: helper_nav_link_class("true") do %>
-                有効
-              <% end %>
+              <%= link_to "有効", admin_users_path(helper_nav_link_params("true")), class: helper_nav_link_class("true") %>
             </li>
             <li class="nav-item">
-              <%= link_to admin_users_path(helper_nav_link_params("false")), class: helper_nav_link_class("false") do %>
-                停止中
-              <% end %>
+              <%= link_to "停止中", admin_users_path(helper_nav_link_params("false")), class: helper_nav_link_class("false") %>
             </li>
           </ul>
         </div>

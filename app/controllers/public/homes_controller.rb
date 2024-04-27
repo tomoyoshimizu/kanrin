@@ -9,11 +9,7 @@ class Public::HomesController < ApplicationController
 
   private
     def redirect_signed_in_user
-      if user_signed_in?
-        redirect_to user_path(current_user)
-      end
-      if admin_signed_in?
-        redirect_to admin_root_path
-      end
+      redirect_to user_path(current_user) if user_signed_in?
+      redirect_to admin_root_path if admin_signed_in?
     end
 end

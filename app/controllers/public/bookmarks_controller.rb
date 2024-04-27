@@ -16,9 +16,7 @@ class Public::BookmarksController < ApplicationController
     def get_project_matched_id
       if params[:project_id]
         @project = Project.find_by(id: params[:project_id])
-        if @project.nil? || !@project.user.is_active
-          redirect_to projects_path
-        end
+        redirect_to projects_path if @project.nil? || !@project.user.is_active
       end
     end
 end

@@ -10,10 +10,13 @@
           <%= form_with model: @user, url: user_registration_path do |form| %>
             <%= render "public/shared/error_messages", resource: resource %>
 
-            <div class="form-group row">
+            <div class="form-group form-row">
               <%= form.label :image, class: "col-md-3 col-form-label" %>
-              <div class="col-md-9 align-self-center">
-                <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+              <div class="col-md-9">
+                <div id="wrap-image-preview" class="bg-light icon-box mb-2">
+                  <%= image_tag "user_placeholder", alt: "プレビュー", id: "image-preview" %>
+                </div>
+                <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
               </div>
             </div>
 
@@ -82,3 +85,4 @@
     </div>
   </div>
 </div>
+<%= render "layouts/image_preview", image: "user_placeholder" %>

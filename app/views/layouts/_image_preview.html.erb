@@ -1,0 +1,34 @@
+<script>
+  document.addEventListener("turbolinks:load", () => {
+
+    const initFormImagePrewiew = (function() {
+      const inputElement = document.getElementById("image-file-field");
+      const wrapImgPreview = document.getElementById("wrap-image-preview");
+      const maxFileSize = 1024 * 1024 * 2;
+
+      let clone = inputElement.cloneNode(true);
+
+      clone.addEventListener("click", (event) => {
+        event.target.value = "";
+        wrapImgPreview.innerHTML = "<%= j(image_tag image, alt: "プレビュー", id: "image-preview") %>";
+      }, false);
+
+      clone.addEventListener("change", (event) => {
+        if (event.target.files[0].size > maxFileSize) {
+          alert("2MBを越えるファイルはアップロードできません。");
+          event.target.value = "";
+        } else {
+          let fileReader = new FileReader();
+          fileReader.addEventListener("load", (event) => {
+            let imgElement = document.getElementById("image-preview")
+            imgElement.setAttribute("src", event.target.result);
+          });
+          fileReader.readAsDataURL(event.target.files[0]);
+        }
+      }, false);
+
+      inputElement.replaceWith(clone);
+    }());
+
+  });
+</script>

@@ -1,0 +1,5 @@
+<% if user.is_guest_user? %>
+  <%= link_to "プロフィール編集", edit_user_path(user), class: "btn btn-outline-secondary btn-bg-white rounded-pill disabled", tabindex: "-1", role: "button", aria: {disabled: true} %>
+<% else %>
+  <%= link_to "プロフィール編集", edit_user_path(user), class: "btn btn-outline-secondary btn-bg-white rounded-pill" %>
+<% end %>
