@@ -18,11 +18,11 @@ class Project < ApplicationRecord
   validates :title, presence: true
 
   def is_completed?
-    status.eql?("completed")
+    status == "completed"
   end
 
   def is_visible?
-    visibility.eql?("visible")
+    visibility == "visible"
   end
 
   def is_bookmarked_by?(user)

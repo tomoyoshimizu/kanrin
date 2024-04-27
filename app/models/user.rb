@@ -38,7 +38,7 @@ class User < ApplicationRecord
   end
 
   def is_guest_user?
-    email.eql?(GUEST_USER_EMAIL)
+    email == GUEST_USER_EMAIL
   end
 
   def has_follower?

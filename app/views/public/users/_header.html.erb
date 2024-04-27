@@ -23,7 +23,7 @@
       <li class="nav-item">
         <%= link_to "フォロー", followees_user_path(user), class: helper_nav_link_class("followees") %>
       </li>
-      <% if @user.eql?(current_user) && @user.has_follower? %>
+      <% if @user == current_user && @user.has_follower? %>
         <li class="nav-item">
           <%= link_to "フォロワー", followers_user_path(user), class: helper_nav_link_class("followers") %>
         </li>

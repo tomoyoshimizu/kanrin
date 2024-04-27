@@ -35,7 +35,7 @@ class Public::UsersController < ApplicationController
 
   def show
     scoped_projects = @user.projects.desc
-    scoped_projects = scoped_projects.visible unless @user.eql?(current_user)
+    scoped_projects = scoped_projects.visible unless @user == current_user
     @projects = scoped_projects.page(params[:page]).per(6)
   end
 
@@ -63,7 +63,7 @@ class Public::UsersController < ApplicationController
     end
 
     def prohibit_illegal_access
-      redirect_to user_path(current_user) unless @user.eql?(current_user)
+      redirect_to user_path(current_user) unless @user == current_user
     end
 
     def prohibit_guest_user_access

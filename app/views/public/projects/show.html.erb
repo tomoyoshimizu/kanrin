@@ -6,7 +6,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <%= render "public/projects/status", status: @project.status %>
-              <% unless @project.user.eql?(current_user) %>
+              <% unless @project.user == current_user %>
                 <%= render "public/bookmarks/btn", project: @project %>
               <% end %>
             </div>
@@ -23,7 +23,7 @@
               <% end %>
             </p>
           </div>
-          <% if @project.user.eql?(current_user) %>
+          <% if @project.user == current_user %>
             <div class="card-footer">
               <div class="row">
                 <div class="col-6">
@@ -36,7 +36,7 @@
             </div>
           <% end %>
         </div>
-        <% if @project.user.eql?(current_user) && !@project.is_completed? %>
+        <% if @project.user == current_user && !@project.is_completed? %>
           <%= link_to "投稿する", new_post_path(project: @project), class: "btn btn-lg btn-block btn-outline-success btn-bg-white rounded-pill mb-4" %>
         <% end %>
       </div>
