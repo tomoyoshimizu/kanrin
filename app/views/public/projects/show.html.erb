@@ -10,7 +10,9 @@
                 <%= render "public/bookmarks/btn", project: @project %>
               <% end %>
             </div>
-            <h2 class="card-title h4"><%= @project.title %></h2>
+            <h2 class="card-title h4">
+              <%= render "public/projects/title", project: @project %>
+            </h2>
             <%= render "public/users/link", user: @project.user %>
             <p class="card-text"><%= @project.description %></p>
           </div>

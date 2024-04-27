@@ -6,7 +6,7 @@
       投稿先プロジェクト
     </dt>
     <dd class="col-md-9 col-form-label">
-      <%= post.project.title %>
+      <%= render "public/projects/title", project: post.project %>
     </dd>
   </dl>
   <%= form.hidden_field :project_id %>
