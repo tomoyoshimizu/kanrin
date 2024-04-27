@@ -42,7 +42,7 @@
 
   <div class="form-group row mb-0">
     <div class="col-6">
-      <% if action_name.eql?("new") %>
+      <% if action_name == "new" %>
         <%= link_to "キャンセル", user_path(current_user), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
       <% else %>
         <%= link_to "キャンセル", project_path(project), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>

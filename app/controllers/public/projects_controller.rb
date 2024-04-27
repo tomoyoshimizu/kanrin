@@ -62,7 +62,7 @@ class Public::ProjectsController < ApplicationController
     end
 
     def prohibited_illegal_access
-      redirect_to user_path(current_user) unless @project.user.eql?(current_user)
+      redirect_to user_path(current_user) unless @project.user == current_user
     end
 
     def project_params

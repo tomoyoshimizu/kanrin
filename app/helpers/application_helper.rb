@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def helper_index_link_class(name)
-    if name.eql?(controller_name)
+    if name == controller_name
       "nav-link nav-link-tab bg-light text-secondary py-3 active disabled font-weight-bold"
     else
       "nav-link nav-link-tab bg-light text-secondary py-3"

@@ -4,7 +4,7 @@
       <div class="project-status">
         <%= render "public/projects/status", status: project.status %>
       </div>
-      <% unless project.user.eql?(current_user) %>
+      <% unless project.user == current_user %>
         <div class="project-bookmark">
           <%= render "public/bookmarks/btn", project: project %>
         </div>
@@ -24,7 +24,7 @@
           <%= project.title %>
         </h3>
       <% end %>
-      <% unless controller_name.eql?("users") && project.user_id.eql?(params[:id].to_i) %>
+      <% unless controller_name == "users" && project.user_id == params[:id].to_i %>
         <p class="card-text card-another-link">
           <%= render "public/users/link", user: project.user %>
         </p>

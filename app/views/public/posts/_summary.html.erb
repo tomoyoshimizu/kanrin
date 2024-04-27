@@ -1,5 +1,5 @@
 <div class="card mb-2">
-  <% unless controller_name.eql?("projects") && post.project_id.eql?(params[:id].to_i) %>
+  <% unless controller_name == "projects" && post.project_id == params[:id].to_i %>
     <div class="card-header bg-transparent">
       <div class="d-flex align-items-center card-another-link">
         <%= render "public/users/link", user: post.user %>
