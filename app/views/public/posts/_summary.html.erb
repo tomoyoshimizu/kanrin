@@ -1,10 +1,12 @@
 <div class="card mb-2">
   <% unless controller_name == "projects" && post.project_id == params[:id].to_i %>
     <div class="card-header bg-transparent">
-      <div class="d-flex align-items-center card-another-link">
+      <div class="d-flex flex-wrap align-items-center card-another-link">
         <%= render "public/users/link", user: post.user %>
         <span class="mx-2">＞</span>
-        <%= link_to post.project.title, project_path(post.project), class: "text-reset text-oneline font-weight-bold" %>
+        <%= link_to project_path(post.project), class: "text-reset text-oneline font-weight-bold" do %>
+          <%= render "public/projects/title", project: post.project %>
+        <% end%>
       </div>
     </div>
   <% end %>

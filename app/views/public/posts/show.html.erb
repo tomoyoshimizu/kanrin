@@ -5,7 +5,9 @@
         <div class="card-header d-flex align-items-center bg-transparent border-bottom">
           <%= render "public/users/link", user: @post.user %>
           <span class="mx-2">＞</span>
-          <%= link_to @post.project.title, project_path(@post.project), class: "text-reset font-weight-bold text-oneline" %>
+          <%= link_to project_path(@post.project), class: "text-reset font-weight-bold text-oneline" do %>
+            <%= render "public/projects/title", project: @post.project %>
+          <% end %>
         </div>
         <% if @post.image.attached? %>
           <div class="card-img-top text-center bg-light border-bottom">
