@@ -18,9 +18,7 @@ class Public::UsersController < ApplicationController
 
   def followers
     @users = @user.followers.valid.desc.page(params[:page]).per(6)
-    unless @users.present?
-      redirect_to user_path(@user)
-    end
+    redirect_to user_path(@user) unless @users.present?
   end
 
   def bookmarks
@@ -37,7 +35,7 @@ class Public::UsersController < ApplicationController
 
   def show
     scoped_projects = @user.projects.desc
-    scoped_projects = scoped_projects.visible unless current_user == @user
+    scoped_projects = scoped_projects.visible unless @user.eql?(current_user)
     @projects = scoped_projects.page(params[:page]).per(6)
   end
 
@@ -59,25 +57,17 @@ class Public::UsersController < ApplicationController
     def get_user_matched_id
       if params[:id]
         @user = User.find_by(id: params[:id])
-        if @user.nil?
-          redirect_to users_path
-        end
-        unless admin_signed_in? || @user.is_active
-          redirect_to users_path
-        end
+        redirect_to users_path if @user.nil?
+        redirect_to users_path unless admin_signed_in? || @user.is_active
       end
     end
 
     def prohibit_illegal_access
-      unless current_user == @user
-        redirect_to user_path(current_user)
-      end
+      redirect_to user_path(current_user) unless @user.eql?(current_user)
     end
 
     def prohibit_guest_user_access
-      if @user.guest_user?
-        redirect_to user_path(current_user)
-      end
+      redirect_to user_path(current_user) if @user.is_guest_user?
     end
 
     def user_params

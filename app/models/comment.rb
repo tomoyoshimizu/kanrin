@@ -12,7 +12,7 @@ class Comment < ApplicationRecord
   scope :valid, -> { joins(:user).where(user: {is_active: true}) }
 
   after_create do
-    create_notification(user_id: self.project.user_id) unless self.user_id == self.project.user_id
+    create_notification(user_id: self.project.user_id) unless self.user_id.eql?(self.project.user_id)
   end
 
   def notification_message

@@ -1,0 +1,9 @@
+<% if user_signed_in? %>
+  <% if user.eql?(current_user) %>
+    <%= render "public/users/btn_edit", user: user %>
+  <% else %>
+    <%= render "public/relationships/btn", user: user %>
+  <% end %>
+<% elsif admin_signed_in? %>
+  <%= render "admin/users/btn_freeze", user: user %>
+<% end %>

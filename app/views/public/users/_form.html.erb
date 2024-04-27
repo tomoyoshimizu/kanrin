@@ -1,10 +1,13 @@
 <%= form_with(model: user) do |form| %>
   <%= render "public/shared/error_messages", resource: form.object %>
 
-  <div class="form-group row">
+  <div class="form-group form-row">
     <%= form.label :image, class: "col-md-3 col-form-label" %>
-    <div class="col-md-9 align-self-center">
-      <%= form.file_field :image, accept: "image/*", class: "form-control-file" %>
+    <div class="col-md-9">
+      <div id="wrap-image-preview" class="bg-light icon-box mb-2">
+        <%= image_tag user.get_image(192, 192), alt: "プレビュー", id: "image-preview" %>
+      </div>
+      <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
     </div>
   </div>
 
@@ -50,3 +53,4 @@
   </div>
 
 <% end %>
+<%= render "layouts/image_preview", image: user.get_image(192, 192) %>

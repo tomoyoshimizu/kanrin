@@ -56,19 +56,13 @@ class Public::ProjectsController < ApplicationController
     def get_project_matched_id
       if params[:id]
         @project = Project.find_by(id: params[:id])
-        if @project.nil?
-          redirect_to projects_path
-        end
-        unless admin_signed_in? || @project.user.is_active
-          redirect_to projects_path
-        end
+        redirect_to projects_path if @project.nil?
+        redirect_to projects_path unless admin_signed_in? || @project.user.is_active
       end
     end
 
     def prohibited_illegal_access
-      unless current_user == @project.user
-        redirect_to user_path(current_user)
-      end
+      redirect_to user_path(current_user) unless @project.user.eql?(current_user)
     end
 
     def project_params

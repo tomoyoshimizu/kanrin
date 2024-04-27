@@ -12,4 +12,12 @@ class Post < ApplicationRecord
   has_one_attached :image
 
   validates :body, presence: true
+
+  def get_image(width, height)
+    if image.attached?
+      image.variant(resize_to_limit: [640, 360]).processed
+    else
+      "post_placeholder"
+    end
+  end
 end

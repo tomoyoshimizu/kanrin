@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
 
   def new
     project = Project.find_by(id: params[:project])
-    if project && project.user == current_user
+    if project && project.user.eql?(current_user)
       @new_post = Post.new
       @new_post.project_id = params[:project]
     else
@@ -54,19 +54,13 @@ class Public::PostsController < ApplicationController
     def get_post_matched_id
       if params[:id]
         @post = Post.find(params[:id])
-        if @post.nil?
-          redirect_to posts_path
-        end
-        unless admin_signed_in? || @post.user.is_active
-          redirect_to posts_path
-        end
+        redirect_to posts_path if @post.nil?
+        redirect_to posts_path unless admin_signed_in? || @post.user.is_active
       end
     end
 
     def prohibited_illegal_access
-      unless current_user == @post.user
-        redirect_to user_path(current_user)
-      end
+      redirect_to user_path(current_user) unless @post.user.eql?(current_user)
     end
 
     def post_params

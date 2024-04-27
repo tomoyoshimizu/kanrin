@@ -17,6 +17,14 @@ class Project < ApplicationRecord
 
   validates :title, presence: true
 
+  def is_completed?
+    status.eql?("completed")
+  end
+
+  def is_visible?
+    visibility.eql?("visible")
+  end
+
   def is_bookmarked_by?(user)
     bookmarks.exists?(user_id: user.id)
   end
@@ -29,10 +37,10 @@ class Project < ApplicationRecord
     posts.pluck(:working_minutes).compact.sum
   end
 
-  def self.get_thumbnail(project)
-    target = project.posts.desc.find { |post| post.image.attached? }
+  def get_thumbnail(width, height)
+    target = posts.desc.find { |post| post.image.attached? }
     if target.present?
-      target.image.variant(resize_to_fill: [640, 360]).processed
+      target.image.variant(resize_to_fill: [width, height]).processed
     else
       "post_placeholder"
     end

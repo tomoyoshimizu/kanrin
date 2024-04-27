@@ -23,9 +23,7 @@ class Public::CommentsController < ApplicationController
     def get_comment_matched_id
       if params[:id]
         @comment = Comment.find(params[:id])
-        if @comment.nil? || !@comment.user.is_active
-          redirect_to posts_path
-        end
+        redirect_to posts_path if @comment.nil? || !@comment.user.is_active
       end
     end
 
