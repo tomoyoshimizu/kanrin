@@ -15,7 +15,11 @@
     <%= form.label :image, class: "col-md-3 col-form-label" %>
     <div class="col-md-9">
       <div id="wrap-image-preview" class="bg-light image-box mb-2">
+      <% if post.image.attached? %>
         <%= image_tag post.get_image(640, 360), alt: "プレビュー", id: "image-preview" %>
+      <% else %>
+        <%= image_tag asset_path("post_placeholder.png"), alt: "プレビュー", id: "image-preview" %>
+      <% end %>
       </div>
       <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
     </div>
@@ -47,4 +51,8 @@
   </div>
 
 <% end %>
-<%= render "layouts/image_preview", image: post.get_image(640, 360) %>
+<% if post.image.attached? %>
+  <%= render "layouts/image_preview", image: post.get_image(640, 360) %>
+<% else %>
+  <%= render "layouts/image_preview", image: asset_path("post_placeholder.png") %>
+<% end %>
