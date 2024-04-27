@@ -2,8 +2,9 @@ class Public::ProjectsController < ApplicationController
   include TagEditor
 
   before_action :get_project_matched_id
-  before_action :authenticate_user!,        only: [:create, :new, :edit, :update, :destroy]
-  before_action :prohibited_illegal_access, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!,                only: [:create, :new, :edit, :update, :destroy]
+  before_action :prohibit_illegal_access,           only: [:edit, :update, :destroy]
+  before_action :prohibit_access_to_hidden_project, only: [:show]
 
   def index
     @search_word = params[:search_word] || ""
@@ -61,8 +62,14 @@ class Public::ProjectsController < ApplicationController
       end
     end
 
-    def prohibited_illegal_access
+    def prohibit_illegal_access
       redirect_to user_path(current_user) unless @project.user == current_user
+    end
+
+    def prohibit_access_to_hidden_project
+      if @project.visibility == "hidden"
+        redirect_to projects_path unless admin_signed_in? || @project.user == current_user
+      end
     end
 
     def project_params
