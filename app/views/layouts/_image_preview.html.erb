@@ -2,28 +2,113 @@
   document.addEventListener("turbolinks:load", () => {
 
     const initFormImagePrewiew = (function() {
+      const api_url = "https://vision.googleapis.com/v1/images:annotate";
+      const api_key = "<%= ENV['GOOGLE_API_KEY'] %>";
+
       const inputElement = document.getElementById("image-file-field");
+      const safeSeaechDetection = document.getElementById("safe-seaech-detection");
+      const safeSeaechDetectionForms = safeSeaechDetection.querySelectorAll("input[data-category]")
       const wrapImgPreview = document.getElementById("wrap-image-preview");
+      const imageTag = "<%= j(image_tag image, alt: "プレビュー", id: "image-preview") %>"
+      const btnSubmit = document.getElementById("btn-submit");
+
       const maxFileSize = 1024 * 1024 * 2;
 
       let clone = inputElement.cloneNode(true);
 
+      /**
+       * バイト書式変換
+       * @param {number} number 適用する数値
+       * @param {number} [point=0] 小数点の桁数
+       * @param {number} [com=1024] 1KBあたりのバイト数
+       * @return {string} 書式化された値を返す
+       */
+      const byteFormat = function(number, point, com) {
+        if (typeof number === "undefined") throw "適用する数値が指定されていません。";
+        if (!String(number).match(/^[0-9][0-9\.]+?/)) throw "適用する数値に誤りがあります。";
+        if (!point) point = 0;
+        if (!com) com = 1024;
+
+        const bytes  = Number(number),
+              suffix = ["Byte", "KB", "MB", "GB", "TB", "PB", "ZB", "YB"],
+              target = Math.floor(Math.log(bytes) / Math.log(com));
+
+        return (bytes / Math.pow(com, Math.floor(target))).toFixed(point) + suffix[target];
+      };
+
+      // Read input file
+      const readFile = (file) => {
+        let fileReader = new FileReader();
+        const promise = new Promise((resolve, reject) => {
+          fileReader.onload = (event) => {
+            let imgElement = wrapImgPreview.getElementsByTagName("img")
+            imgElement[0].setAttribute("src", event.target.result);
+            resolve(event.target.result.replace(/^data:image\/(png|jpeg);base64,/, ""));
+          };
+        })
+        fileReader.readAsDataURL(file);
+        return promise;
+      };
+
+      // Send API Request to Cloud Vision API
+      const sendAPI = (base64string) => {
+        let params = {
+          requests: [
+            {
+              image: { content: base64string },
+              features: [
+                { type: "SAFE_SEARCH_DETECTION" }
+              ]
+            }
+          ]
+        };
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", `${api_url}?key=${api_key}`, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        const promise = new Promise((resolve, reject) => {
+          xhr.onreadystatechange = () => {
+            if (xhr.readyState != XMLHttpRequest.DONE) return;
+            if (xhr.status >= 400) return reject({message: `Failed with ${xhr.status}:${xhr.statusText}`});
+            resolve(JSON.parse(xhr.responseText));
+          };
+        })
+        xhr.send(JSON.stringify(params));
+        return promise;
+      }
+
+      const afterResponse = (response) => {
+        console.log("Successfully API requests.", JSON.stringify(response, null, 2));
+        let safeSearchAnnotation = response["responses"][0]["safeSearchAnnotation"];
+        safeSeaechDetectionForms.forEach((element) => {
+          let category = element.getAttribute("data-category");
+          let likelihood = safeSearchAnnotation[category];
+          element.value = likelihood;
+        });
+      }
+
       clone.addEventListener("click", (event) => {
         event.target.value = "";
-        wrapImgPreview.innerHTML = "<%= j(image_tag image, alt: "プレビュー", id: "image-preview") %>";
+        safeSeaechDetectionForms.forEach((element) => element.value = "");
+        wrapImgPreview.innerHTML = imageTag;
       }, false);
 
       clone.addEventListener("change", (event) => {
         if (event.target.files[0].size > maxFileSize) {
-          alert("2MBを越えるファイルはアップロードできません。");
+          alert(`${byteFormat(maxFileSize)}を越えるファイルはアップロードできません。`);
           event.target.value = "";
         } else {
-          let fileReader = new FileReader();
-          fileReader.addEventListener("load", (event) => {
-            let imgElement = document.getElementById("image-preview")
-            imgElement.setAttribute("src", event.target.result);
-          });
-          fileReader.readAsDataURL(event.target.files[0]);
+          btnSubmit.setAttribute("disabled", "");
+          Promise.resolve(event.target.files[0])
+            .then(readFile)
+            .then(sendAPI)
+            .then(afterResponse)
+            .then( res => {
+              btnSubmit.removeAttribute("disabled");
+            })
+            .catch(err => {
+              console.error(err);
+              btnSubmit.removeAttribute("disabled");
+            });
         }
       }, false);
 

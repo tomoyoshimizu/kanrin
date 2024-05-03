@@ -22,6 +22,13 @@
       <% end %>
       </div>
       <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
+      <div id="safe-seaech-detection">
+        <%= form.fields_for :safe_seaech_detection do |safe_seaech_detection| %>
+          <% [:adult, :spoof, :medical, :violence, :racy].each do |category| %>
+            <%= safe_seaech_detection.text_field category, data: { category: category.to_s }, class: "form-control" %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -46,11 +53,24 @@
       <%= link_to "キャンセル", "javascript:history.back()", class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
     </div>
     <div class="col-6">
-      <%= form.submit class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
+      <%= form.submit id: "btn-submit", class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
     </div>
   </div>
-
 <% end %>
+
+<!--<template>-->
+<!--  <div id="error_explanation" data-turbo-cache="false">-->
+<!--    <strong>-->
+<!--      3 件のエラーが発生したため ユーザー は保存されませんでした。-->
+<!--    </strong>-->
+<!--    <ul>-->
+<!--      <li>メールアドレスはすでに存在します</li>-->
+<!--      <li>パスワード（確認用）とパスワードの入力が一致しません</li>-->
+<!--      <li>パスワードは6文字以上で入力してください</li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</template>-->
+
 <% if post.image.attached? %>
   <%= render "layouts/image_preview", image: post.get_image(640, 360) %>
 <% else %>

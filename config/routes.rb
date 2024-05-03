@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   # 管理者用
   namespace :admin do
     root to: "homes#top"
+    resources :safe_seaech_detections, only: [:index]
     resources :users, only: [:index] do
       patch "freeze", on: :member
     end

@@ -1,0 +1,31 @@
+<div class="card mb-2">
+  <div class="card-header d-flex align-items-center bg-transparent border-bottom">
+    <%= render "public/users/link", user: safe_seaech_detection.post.user %>
+    <span class="mx-2">＞</span>
+    <%= link_to project_path(safe_seaech_detection.post.project), class: "text-reset font-weight-bold text-oneline" do %>
+      <%= render "public/projects/title", project: safe_seaech_detection.post.project %>
+    <% end %>
+  </div>
+  <div class="row position-relative">
+    <div class="col-6">
+      <div class="image-box bg-light">
+        <%= image_tag safe_seaech_detection.post.get_image(256, 256) %>
+      </div>
+    </div>
+    <div class="col-6 position-static">
+      <dl class="list-data">
+        <% [:adult, :spoof, :medical, :violence, :racy].each do |category| %>
+          <dt><%= User.human_attribute_name(category) %></dt>
+          <dd >
+            <%= I18n.t(safe_seaech_detection[category], scope: ["enums", "safe_seaech_detection", category]) %>
+          </dd>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-center">
+      <%= render "admin/users/btn_freeze", user: safe_seaech_detection.post.user %>
+    </div>
+  </div>
+</div>

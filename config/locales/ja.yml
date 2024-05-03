@@ -11,6 +11,24 @@ ja:
       visibility:
         visible: "全体公開"
         hidden: "非公開"
+    safe_seaech_detection:
+      likelihood: &likelihood
+        UNKNOWN: "判別不能"
+        VERY_UNLIKELY: "とても可能性が低い"
+        UNLIKELY: "可能性が低い"
+        POSSIBLE: "可能性がある"
+        LIKELY: "可能性が高い"
+        VERY_LIKELY: "とても可能性が高い"
+      adult:
+        <<: *likelihood
+      spoof:
+        <<: *likelihood
+      medical:
+        <<: *likelihood
+      violence:
+        <<: *likelihood
+      racy:
+        <<: *likelihood
   activerecord:
     errors:
       messages:

@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :project
   has_one :user, through: :project
+  has_one :safe_seaech_detection, dependent: :destroy
 
   has_many :comments, dependent: :destroy
 
