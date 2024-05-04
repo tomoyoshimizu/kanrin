@@ -2,10 +2,15 @@
   document.addEventListener("turbolinks:load", () => {
 
     const initFormImagePrewiew = (function() {
+
       const api_url = "https://vision.googleapis.com/v1/images:annotate";
       const api_key = "<%= ENV['GOOGLE_API_KEY'] %>";
 
       const inputElement = document.getElementById("image-file-field");
+
+      const warning = document.getElementById("warning");
+      const checkBox = document.getElementById("post_confirm_warning");
+
       const safeSeaechDetection = document.getElementById("safe-seaech-detection");
       const safeSeaechDetectionForms = safeSeaechDetection.querySelectorAll("input[data-category]")
       const wrapImgPreview = document.getElementById("wrap-image-preview");
@@ -84,13 +89,26 @@
           let likelihood = safeSearchAnnotation[category];
           element.value = likelihood;
         });
+        let targetCategory = ["adult", "medical", "violence", "racy"];
+        let targetLikelihood  = ["POSSIBLE", "LIKELY", "VERY_LIKELY"];
+        let result = targetCategory.some((category) => targetLikelihood.includes(safeSearchAnnotation[category]));
+        if (result) {
+          checkBox.checked = false;
+          checkBox.setAttribute("required", true);
+          warning.setAttribute("aria-hidden", false);
+        };
       }
 
-      clone.addEventListener("click", (event) => {
+      function resetImagePreview(event) {
         event.target.value = "";
-        safeSeaechDetectionForms.forEach((element) => element.value = "");
         wrapImgPreview.innerHTML = imageTag;
-      }, false);
+        safeSeaechDetectionForms.forEach((element) => element.value = "");
+        checkBox.checked = false;
+        checkBox.removeAttribute("required");
+        warning.setAttribute("aria-hidden", true);
+      }
+
+      clone.addEventListener("click", resetImagePreview, false);
 
       clone.addEventListener("change", (event) => {
         if (event.target.files[0].size > maxFileSize) {
@@ -102,11 +120,13 @@
             .then(readFile)
             .then(sendAPI)
             .then(afterResponse)
-            .then( res => {
+            .then(response => {
               btnSubmit.removeAttribute("disabled");
             })
-            .catch(err => {
-              console.error(err);
+            .catch(error => {
+              console.error(error);
+              alert("画像のアップロードに失敗しました。");
+              resetImagePreview(event);
               btnSubmit.removeAttribute("disabled");
             });
         }

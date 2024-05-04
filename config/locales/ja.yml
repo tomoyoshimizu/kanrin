@@ -14,11 +14,11 @@ ja:
     safe_seaech_detection:
       likelihood: &likelihood
         UNKNOWN: "判別不能"
-        VERY_UNLIKELY: "とても可能性が低い"
+        VERY_UNLIKELY: "可能性が非常に低い"
         UNLIKELY: "可能性が低い"
         POSSIBLE: "可能性がある"
         LIKELY: "可能性が高い"
-        VERY_LIKELY: "とても可能性が高い"
+        VERY_LIKELY: "可能性が非常に高い"
       adult:
         <<: *likelihood
       spoof:
@@ -52,6 +52,7 @@ ja:
       comment: "コメント"
       notification: "通知"
       admin: "管理者"
+      safe_seaech_detection: "セーフサーチ検出"
     controllers:
       users: "ユーザー"
       relationships: "フォロー関係"
@@ -63,6 +64,7 @@ ja:
       comments: "コメント"
       notifications: "通知"
       admins: "管理者"
+      safe_seaech_detections: "セーフサーチ検出"
     # 追記
     attributes:
       user:
@@ -137,6 +139,12 @@ ja:
         encrypted_password: "パスワード"
         created_at: "作成日時"
         updated_at: "更新日時"
+      safe_seaech_detection:
+        adult: "アダルト"
+        spoof: "スプーフ"
+        medical: "医療"
+        violence: "暴力"
+        racy: "煽情"
   date:
     abbr_day_names:
     - 日

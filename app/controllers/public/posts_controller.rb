@@ -1,4 +1,9 @@
 class Public::PostsController < ApplicationController
+  if Rails.env.development? || Rails.env.test?
+    ActiveStorage::AnalyzeJob.queue_adapter = :inline
+    ActiveStorage::PurgeJob.queue_adapter = :inline
+  end
+
   before_action :get_post_matched_id
   before_action :authenticate_user!,                only: [:index, :create, :new, :edit, :update, :destroy]
   before_action :prohibit_illegal_access,           only: [:edit, :update, :destroy]
@@ -12,8 +17,8 @@ class Public::PostsController < ApplicationController
     @new_post = Post.new(post_params)
     if @new_post.save
       @comments = @new_post.comments.valid
-      if @new_post.image.attached?
-        @new_post.create_safe_seaech_detection(safe_seaech_detection_params)
+      if params[:post][:confirm_warning] == "1"
+        @new_post.attach_safe_seaech_detection(safe_seaech_detection_params)
       end
       redirect_to project_url(@new_post.project)
     else
@@ -42,12 +47,10 @@ class Public::PostsController < ApplicationController
   def update
     if @post.update(post_params)
       @comments = @post.comments.valid
-      if @post.image.attached?
-        if @post.safe_seaech_detection.present?
-          @post.safe_seaech_detection.update(safe_seaech_detection_params)
-        else
-          @post.create_safe_seaech_detection(safe_seaech_detection_params)
-        end
+      if params[:post][:confirm_warning] == "1"
+        @post.attach_safe_seaech_detection(safe_seaech_detection_params)
+      else
+        @post.detach_safe_seaech_detection
       end
       redirect_to post_url(@post)
     else

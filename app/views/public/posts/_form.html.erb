@@ -22,12 +22,41 @@
       <% end %>
       </div>
       <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
+
       <div id="safe-seaech-detection">
         <%= form.fields_for :safe_seaech_detection do |safe_seaech_detection| %>
           <% [:adult, :spoof, :medical, :violence, :racy].each do |category| %>
+
+            <div class="form-group form-row">
+              <%= form.label category, class: "col-md-3 col-form-label" %>
+              <div class="col-md-9">
+
             <%= safe_seaech_detection.text_field category, data: { category: category.to_s }, class: "form-control" %>
+
+              </div>
+            </div>
+
           <% end %>
         <% end %>
+      </div>
+
+      <div id="warning" class="toggle" aria-hidden="true">
+        <div class="toggle__inner">
+          <div class="alert alert-warning">
+            <p>
+              <strong>アップロードされた画像は安全ですか？</strong>
+            </p>
+            <p>
+              <small>
+                不適切な画像がアップロードされた場合、当サービスの運営によってアカウントを停止する措置を行うことがあります。詳しくは<%= link_to "利用規約", about_path, target: "_blank" %>をご確認ください。
+              </small>
+            </p>
+            <div class="form-check">
+              <%= form.check_box :confirm_warning, class: "form-check-input" %>
+              <%= form.label :confirm_warning, "画像が利用規約に違反していないことを確認しました", class: "form-check-label" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,19 +86,6 @@
     </div>
   </div>
 <% end %>
-
-<!--<template>-->
-<!--  <div id="error_explanation" data-turbo-cache="false">-->
-<!--    <strong>-->
-<!--      3 件のエラーが発生したため ユーザー は保存されませんでした。-->
-<!--    </strong>-->
-<!--    <ul>-->
-<!--      <li>メールアドレスはすでに存在します</li>-->
-<!--      <li>パスワード（確認用）とパスワードの入力が一致しません</li>-->
-<!--      <li>パスワードは6文字以上で入力してください</li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--</template>-->
 
 <% if post.image.attached? %>
   <%= render "layouts/image_preview", image: post.get_image(640, 360) %>

@@ -1,5 +1,5 @@
 class Public::HomesController < ApplicationController
-  before_action :redirect_signed_in_user
+  before_action :redirect_signed_in_user, only: [:top]
 
   def top
   end
