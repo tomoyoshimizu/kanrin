@@ -64,6 +64,11 @@ class Public::PostsController < ApplicationController
     redirect_to project_path(parent_project)
   end
 
+  def send_api
+    result = Vision.get_image_data(params[:requests])
+    render json: result
+  end
+
   private
     def get_post_matched_id
       if params[:id]

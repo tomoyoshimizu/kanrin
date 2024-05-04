@@ -90,8 +90,6 @@
         if (result) { showWarning(true) };
       }
 
-      const check
-
       const resetImagePreview = (event) => {
         event.target.value = "";
         attachImagePreview(false);
