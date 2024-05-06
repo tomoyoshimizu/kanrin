@@ -9,7 +9,7 @@ class Admin::UsersController < ApplicationController
                    when "true"  then User.desc.valid
                    when "false" then User.desc.invalid
                    else User.desc
-    end
+                   end
     scoped_users = scoped_users.searched_with(@search_word) if @search_word.present?
     @users = scoped_users.page(params[:page]).per(6)
   end

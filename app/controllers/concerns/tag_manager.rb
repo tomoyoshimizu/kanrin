@@ -1,4 +1,4 @@
-module TagEditor
+module TagManager
   extend ActiveSupport::Concern
 
   def edit_tags(project, tags)

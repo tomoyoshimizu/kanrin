@@ -8,6 +8,7 @@
   --color-secondary: #6C757D;
   --color-success: #28a745;
   --color-danger: #dc3545;
+  --color-warning: #ffc107;
   --color-dark: #454d55;
   --color-text: #192323;
   --color-bg: #f3f2ee;
@@ -23,7 +24,7 @@ body {
   position: relative;
   font-family: var(--font-family-sans-serif);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  /*background-color: var(--color-bg);*/
   background-image: url("../images/kinda-jean.png");
   min-width: 375px;
   min-height: 100vh;
@@ -280,23 +281,79 @@ main{
 /* リスト（共通） */
 .list-data{
   display: grid;
-  grid-template-columns: 100%;
+  grid-template-columns: auto 1fr;
   column-gap: 2em;
 }
-@media screen and (min-width: 576px) {
-  .list-data{
-    grid-template-columns: auto 1fr;
+.list-data > dt{
+  grid-column: 1;
+}
+.list-data > dd{
+  grid-column: 2;
+}
+@media not screen and (min-width: 576px) {
+  .list-data:not(.no-wrap){
+    grid-template-columns: 100%;
   }
-  .list-data > dt{
+  .list-data:not(.no-wrap) > dd{
     grid-column: 1;
-  }
-  .list-data > dd{
-    grid-column: 2;
   }
 }
 .email{
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* トグルメニュー（共通） */
+.toggle{
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.5s ease-out;
+}
+.toggle__inner{
+  overflow-y: hidden;
+}
+.toggle[aria-hidden="true"]{
+  grid-template-rows: 0fr;
+}
+
+/* セーフサーチのスコア */
+.score{
+  width: 100%;
+  height: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+}
+.score-text{
+  --color-score: var(--color-text);
+  color: var(--color-score);
+}
+.score--very_unlikely, .score--unlikely{
+  --color-score: var(--color-success);
+}
+.score--possible{
+  --color-score: var(--color-warning);
+}
+.score--likely, .score--very_likely{
+  --color-score: var(--color-danger);
+}
+.score > div{
+  background-color: lightgray;
+}
+.score--very_unlikely > div:first-child{
+  background-color: var(--color-score);
+}
+.score--unlikely > div:nth-child(-n+2){
+  background-color: var(--color-score);
+}
+.score--possible > div:nth-child(-n+3){
+  background-color: var(--color-score);
+}
+.score--likely > div:nth-child(-n+4){
+  background-color: var(--color-score);
+}
+.score--very_likely > div{
+  background-color: var(--color-score);
 }
 
 /* エラーメッセージ（共通） */

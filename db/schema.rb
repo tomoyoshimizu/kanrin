@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_13_113553) do
+ActiveRecord::Schema.define(version: 2024_05_03_103004) do
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -112,6 +113,18 @@ ActiveRecord::Schema.define(version: 2024_04_13_113553) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "safe_seaech_detections", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "adult"
+    t.integer "spoof"
+    t.integer "medical"
+    t.integer "violence"
+    t.integer "racy"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_safe_seaech_detections_on_post_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "tag_id", null: false
@@ -155,6 +168,7 @@ ActiveRecord::Schema.define(version: 2024_04_13_113553) do
   add_foreign_key "projects", "users"
   add_foreign_key "relationships", "users", column: "followee_id"
   add_foreign_key "relationships", "users", column: "follower_id"
+  add_foreign_key "safe_seaech_detections", "posts"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
 end

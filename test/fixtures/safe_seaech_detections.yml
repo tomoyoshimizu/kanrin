@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post: one
+  adult: 1
+  spoof: 1
+  medical: 1
+  violence: 1
+  racy: 1
+
+two:
+  post: two
+  adult: 1
+  spoof: 1
+  medical: 1
+  violence: 1
+  racy: 1

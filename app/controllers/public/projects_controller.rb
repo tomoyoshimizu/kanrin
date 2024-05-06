@@ -1,5 +1,5 @@
 class Public::ProjectsController < ApplicationController
-  include TagEditor
+  include TagManager
 
   before_action :get_project_matched_id
   before_action :authenticate_user!,                only: [:create, :new, :edit, :update, :destroy]
