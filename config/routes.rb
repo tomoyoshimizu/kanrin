@@ -34,18 +34,18 @@ Rails.application.routes.draw do
     end
     resources :tags, only: [:index, :show]
     resources :posts, shallow: true do
+      post "send_api", on: :collection
       resources :comments, only: [:create, :destroy]
     end
     resources :notifications, only: [:update] do
-      member do
-        get "read"
-      end
+      get "read", on: :member
     end
   end
 
   # 管理者用
   namespace :admin do
     root to: "homes#top"
+    resources :safe_seaech_detections, only: [:index, :destroy]
     resources :users, only: [:index] do
       patch "freeze", on: :member
     end
