@@ -17,7 +17,7 @@ class Public::PostsController < ApplicationController
     @new_post = Post.new(post_params)
     if @new_post.save
       @comments = @new_post.comments.valid
-      if params[:post][:confirm_warning] == "1"
+      if params[:post][:confirm_alert] == "1"
         @new_post.attach_safe_seaech_detection(safe_seaech_detection_params)
       end
       redirect_to project_url(@new_post.project)
@@ -47,7 +47,7 @@ class Public::PostsController < ApplicationController
   def update
     if @post.update(post_params)
       @comments = @post.comments.valid
-      if params[:post][:confirm_warning] == "1"
+      if params[:post][:confirm_alert] == "1"
         @post.attach_safe_seaech_detection(safe_seaech_detection_params)
       else
         @post.detach_safe_seaech_detection

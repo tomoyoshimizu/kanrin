@@ -14,50 +14,40 @@
   <div class="form-group form-row">
     <%= form.label :image, class: "col-md-3 col-form-label" %>
     <div class="col-md-9">
-      <div id="wrap-image-preview" class="bg-light image-box mb-2">
-      <% if post.image.attached? %>
-        <%= image_tag post.get_image(640, 360), alt: "プレビュー", id: "image-preview" %>
-      <% else %>
-        <%= image_tag asset_path("post_placeholder.png"), alt: "プレビュー", id: "image-preview" %>
-      <% end %>
-      </div>
-      <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
 
-      <div id="safe-seaech-detection">
+      <div class="bg-light image-box mb-2">
+        <%= image_tag (post.image.attached? ? post.get_image(640, 360) : asset_path("post_placeholder.png")), alt: "プレビュー", id: "image-preview" %>
+      </div>
+
+      <%= form.file_field :image, accept: "image/*", data: { maximum: 1024 * 1024 * 2, apirequesturl: j(send_api_posts_url), apirequestmethod: "POST" }, id: "image-preview-file-field", class: "form-control-file" %>
+
+      <div id="safe-seaech-detection-form-filelds">
         <%= form.fields_for :safe_seaech_detection do |safe_seaech_detection| %>
           <% [:adult, :spoof, :medical, :violence, :racy].each do |category| %>
-
-            <div class="form-group form-row">
-              <%= form.label category, class: "col-md-3 col-form-label" %>
-              <div class="col-md-9">
-
-            <%= safe_seaech_detection.text_field category, data: { category: category.to_s }, class: "form-control" %>
-
-              </div>
-            </div>
-
+            <%= safe_seaech_detection.hidden_field category, data: { category: category.to_s }, class: "form-control" %>
           <% end %>
         <% end %>
       </div>
 
-      <div id="warning" class="toggle" aria-hidden="true">
+      <div id="safe-seaech-detection-alert" class="toggle" aria-hidden="true">
         <div class="toggle__inner">
-          <div class="alert alert-warning">
+          <div class="alert alert-warning mt-2 mb-0">
             <p>
               <strong>アップロードされた画像は安全ですか？</strong>
             </p>
             <p>
               <small>
-                不適切な画像がアップロードされた場合、当サービスの運営によってアカウントを停止する措置を行うことがあります。詳しくは<%= link_to "利用規約", about_path, target: "_blank" %>をご確認ください。
+                不適切な画像がアップロードされた場合、当サービスの運営によってアカウントを停止する措置を行うことがあります。詳しくは<%= link_to "利用規約", about_path, target: "_blank", class: "alert-link" %>をご確認ください。
               </small>
             </p>
             <div class="form-check">
-              <%= form.check_box :confirm_warning, class: "form-check-input" %>
-              <%= form.label :confirm_warning, "画像が利用規約に違反していないことを確認しました", class: "form-check-label" %>
+              <%= form.check_box :confirm_alert, class: "form-check-input" %>
+              <%= form.label :confirm_alert, "画像が利用規約に違反していないことを確認しました", class: "form-check-label" %>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -85,10 +75,4 @@
       <%= form.submit id: "btn-submit", class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
     </div>
   </div>
-<% end %>
-
-<% if post.image.attached? %>
-  <%= render "layouts/image_preview", image: post.get_image(640, 360) %>
-<% else %>
-  <%= render "layouts/image_preview", image: asset_path("post_placeholder.png") %>
 <% end %>

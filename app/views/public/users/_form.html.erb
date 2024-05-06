@@ -4,10 +4,13 @@
   <div class="form-group form-row">
     <%= form.label :image, class: "col-md-3 col-form-label" %>
     <div class="col-md-9">
-      <div id="wrap-image-preview" class="bg-light icon-box mb-2">
+
+      <div class="bg-light icon-box mb-2">
         <%= image_tag user.get_image(192, 192), alt: "プレビュー", id: "image-preview" %>
       </div>
-      <%= form.file_field :image, accept: "image/*", id: "image-file-field", class: "form-control-file" %>
+
+      <%= form.file_field :image, accept: "image/*", data: { maximum: 1024 * 1024 * 1 }, id: "image-preview-file-field", class: "form-control-file" %>
+
     </div>
   </div>
 
@@ -48,9 +51,8 @@
       <%= link_to "キャンセル", user_path(user), class: "btn btn-lg btn-outline-secondary btn-block rounded-pill" %>
     </div>
     <div class="col-6">
-      <%= form.submit class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
+      <%= form.submit id: "btn-submit", class: "btn btn-lg btn-outline-success btn-block rounded-pill" %>
     </div>
   </div>
 
 <% end %>
-<%= render "layouts/image_preview", image: user.get_image(192, 192) %>

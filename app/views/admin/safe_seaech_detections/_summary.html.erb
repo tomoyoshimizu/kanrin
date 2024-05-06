@@ -6,20 +6,25 @@
       <%= render "public/projects/title", project: safe_seaech_detection.post.project %>
     <% end %>
   </div>
-  <div class="row position-relative">
-    <div class="col-6">
-      <div class="image-box bg-light">
-        <%= image_tag safe_seaech_detection.post.get_image(256, 256) %>
-      </div>
+  <div class="card-body row position-relative">
+    <div class="col-12 col-md-6">
+      <%= link_to post_path(safe_seaech_detection.post) do %>
+        <div class="image-box bg-light">
+          <%= image_tag safe_seaech_detection.post.get_image(256, 256) %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-6 position-static">
-      <dl class="list-data">
-        <% [:adult, :spoof, :medical, :violence, :racy].each do |category| %>
-          <dt>
-            <%= SafeSeaechDetection.human_attribute_name(category) %>
-          </dt>
-          <dd>
-            <%= I18n.t(safe_seaech_detection[category], scope: ["enums", "safe_seaech_detection", category]) %>
+    <div class="col-12 col-md-6 position-static">
+      <dl class="list-data no-wrap mt-3 mt-md-0 mb-0">
+        <% [:adult, :medical, :violence, :racy].each do |category| %>
+          <dt><%= SafeSeaechDetection.human_attribute_name(category) %></dt>
+          <dd class="text-mini">
+            <div class="score <%= "score--#{safe_seaech_detection[category].downcase}" %>">
+              <div></div><div></div><div></div><div></div><div></div>
+            </div>
+            <div class="score-text <%= "score--#{safe_seaech_detection[category].downcase}" %>">
+              <%= I18n.t(safe_seaech_detection[category], scope: ["enums", "safe_seaech_detection", category]) %>
+            </div>
           </dd>
         <% end %>
       </dl>
@@ -28,6 +33,7 @@
   <div class="card-footer">
     <div class="d-flex justify-content-center">
       <%= render "admin/users/btn_freeze", user: safe_seaech_detection.post.user %>
+      <%= link_to "確認済", admin_safe_seaech_detection_path(safe_seaech_detection), method: :delete, class: "btn btn-outline-secondary btn-bg-white rounded-pill ml-2" %>
     </div>
   </div>
 </div>

@@ -8,19 +8,7 @@
 
     <%= stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
-    <style>
-      .toggle{
-        display: grid;
-        grid-template-rows: 1fr;
-        transition: grid-template-rows 0.5s ease-out;
-      }
-      .toggle__inner{
-        overflow-y: hidden;
-      }
-      .toggle[aria-hidden="true"]{
-        grid-template-rows: 0fr;
-      }
-    </style>
+    <%= javascript_pack_tag "image_preview", "data-turbolinks-track": "reload" %>
   </head>
 
   <body>

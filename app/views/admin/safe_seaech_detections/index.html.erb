@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9 col-xl-8">
-      <%= render partial: "admin/safe_seaech_detections/summary", collection: @safe_seaech_detections, as: "safe_seaech_detection" %>
+      <% if @safe_seaech_detections.present? %>
+        <%= render partial: "admin/safe_seaech_detections/summary", collection: @safe_seaech_detections, as: "safe_seaech_detection" %>
+        <%= paginate @safe_seaech_detections %>
+      <% else %>
+        <p class="h4 mb-4">現在、利用規約に違反する可能性が高い投稿は検出されていません。</p>
+      <% end %>
     </div>
   </div>
 </div>
