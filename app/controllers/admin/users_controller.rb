@@ -20,6 +20,7 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+
     def get_user_matched_id
       if params[:id]
         @user = User.find_by(id: params[:id])

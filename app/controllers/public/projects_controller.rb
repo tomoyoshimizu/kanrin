@@ -54,6 +54,7 @@ class Public::ProjectsController < ApplicationController
   end
 
   private
+
     def get_project_matched_id
       if params[:id]
         @project = Project.find_by(id: params[:id])
