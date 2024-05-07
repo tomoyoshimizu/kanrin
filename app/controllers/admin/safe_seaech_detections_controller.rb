@@ -15,6 +15,7 @@ class Admin::SafeSeaechDetectionsController < ApplicationController
   end
 
   private
+
     def get_safe_seaech_detection_matched_id
       if params[:id]
         @safe_seaech_detection = SafeSeaechDetection.find_by(id: params[:id])

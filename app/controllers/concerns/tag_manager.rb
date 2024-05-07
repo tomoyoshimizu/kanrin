@@ -13,6 +13,7 @@ module TagManager
   end
 
   private
+
     def add_tags(project, tag_list)
       return false if tag_list.blank?
       tag_list.each do |item|

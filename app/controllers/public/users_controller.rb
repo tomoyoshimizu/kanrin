@@ -30,8 +30,7 @@ class Public::UsersController < ApplicationController
     @notifications = current_user.notifications.unread.desc.page(params[:page]).per(6)
   end
 
-  def edit
-  end
+  def edit; end
 
   def show
     scoped_projects = @user.projects.desc
@@ -54,6 +53,7 @@ class Public::UsersController < ApplicationController
   end
 
   private
+
     def get_user_matched_id
       if params[:id]
         @user = User.find_by(id: params[:id])

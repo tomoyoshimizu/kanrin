@@ -20,6 +20,7 @@ class Public::CommentsController < ApplicationController
   end
 
   private
+
     def get_comment_matched_id
       if params[:id]
         @comment = Comment.find(params[:id])
