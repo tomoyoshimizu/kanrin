@@ -13,6 +13,7 @@ class Public::RelationshipsController < ApplicationController
   end
 
   private
+
     def get_user_matched_id
       if params[:user_id]
         @user = User.find_by(id: params[:user_id])

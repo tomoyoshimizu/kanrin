@@ -16,6 +16,7 @@ class Public::TagsController < ApplicationController
   end
 
   private
+
     def get_tag_matched_id
       if params[:id]
         @tag = Tag.find(params[:id])

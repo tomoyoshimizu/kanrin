@@ -36,8 +36,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def show
     @new_comment = Comment.new
@@ -70,6 +69,7 @@ class Public::PostsController < ApplicationController
   end
 
   private
+
     def get_post_matched_id
       if params[:id]
         @post = Post.find(params[:id])

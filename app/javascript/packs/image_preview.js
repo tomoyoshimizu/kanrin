@@ -127,7 +127,10 @@ document.addEventListener("turbolinks:load", () => {
       if (hasHighLikelihood(response)) {
         inputLikelihoodValue(response);
         showAlert(true);
-      };
+      } else {
+        inputLikelihoodValue(false);
+        showAlert(false);
+      }
     };
 
     const uploadEvent = (event) => {
@@ -178,8 +181,6 @@ document.addEventListener("turbolinks:load", () => {
     }
     inputElement.replaceWith(clone);
   };
-
-
 
   if (document.getElementById("image-preview-file-field")){
     initFormImagePrewiew();
