@@ -14,7 +14,9 @@
               <%= render "public/projects/title", project: @project %>
             </h2>
             <%= render "public/users/link", user: @project.user %>
-            <p class="card-text"><%= @project.description %></p>
+            <p class="card-text">
+              <%= simple_format(@project.description, sanitize: true) %>
+            </p>
           </div>
           <div class="card-body border-top">
             <%= render partial: "public/tags/tag", collection: @project.tags, as: "tag" %>

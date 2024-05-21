@@ -3,7 +3,7 @@ module TagManager
 
   def edit_tags(project, tags)
     before = project.tags.pluck(:name)
-    after = tags.split(",").map(&:strip)
+    after = split_tags(tags)
     add_tags(project, after.difference(before))
     remove_tags(project, before.difference(after))
   end
@@ -13,6 +13,11 @@ module TagManager
   end
 
   private
+
+    def split_tags(tags)
+      tag_list = tags.split(",").map(&:strip)
+      tag_list.uniq
+    end
 
     def add_tags(project, tag_list)
       return false if tag_list.blank?

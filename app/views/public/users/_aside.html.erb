@@ -5,7 +5,9 @@
       <h3 class="card-title h5 font-weight-bold text-oneline"><%= current_user.name %></h3>
     <% end %>
     <p class="card-text text-twoline">
-      <small><%= current_user.description %></small>
+      <small>
+        <%= simple_format(current_user.description, sanitize: true) %>
+      </small>
     </p>
     <%= render "public/users/btn", user: current_user %>
   </div>

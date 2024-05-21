@@ -11,7 +11,7 @@
             <%= render "public/users/btn", user: @user %>
           </div>
         </div>
-        <p><%= user.description %></p>
+        <p><%= simple_format(user.description, sanitize: true) %></p>
       </div>
     </div>
   </div>
