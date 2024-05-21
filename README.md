@@ -18,7 +18,10 @@
 - ほかのユーザーの制作の様子を覗いたり交流したい時
 
 ## 設計書
-後ほど作成予定
+- [UIFlows](https://drive.google.com/file/d/1ehicDbnikcftjJrHELDCMw_jqdgdu3DH/view?usp=sharing)
+- [ER図](https://drive.google.com/file/d/1Pw98BYaeTAHQ4TflLyy3Wk3PFQysNU-L/view?usp=sharing)
+- [テーブル定義書](https://docs.google.com/spreadsheets/d/14ggTxKLM_dvhEiSwi2TEclVcCoDloK7n9GF8CYY85Ss/edit?usp=sharing)
+- [アプリケーション詳細設計書](https://docs.google.com/spreadsheets/d/1vveoSQ5c_wamc7n9YR0kuSEcSkpOCEEsSPFBQoQ4waA/edit?usp=sharing)
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -28,4 +31,14 @@
 - IDE：Cloud9
 
 ## 使用素材
-投稿のダミーデータはフリー素材を使用するものとする（後ほど選定予定）
+[Pixabay](https://pixabay.com/ja/)
+> トップページのイメージ画像、およびテストデータの投稿・アイコンに使用した画像
+
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)
+> テストデータの投稿に使用した画像
+
+[Transparent Textures](https://www.transparenttextures.com/)
+> 背景テクスチャ
+
+[Font Awesome](https://fontawesome.com/)
+> svgアイコン
