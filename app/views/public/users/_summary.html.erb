@@ -10,7 +10,9 @@
             <h3 class="card-title h6 font-weight-bold text-oneline"><%= user.name %></h3>
           <% end %>
           <p class="card-text text-twoline">
-            <small><%= user.description %></small>
+            <small>
+              <%= simple_format(user.description, sanitize: true) %>
+            </small>
           </p>
         </div>
       </div>
