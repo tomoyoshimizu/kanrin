@@ -75,6 +75,20 @@ main{
   mask-size: contain;
 }
 
+/* トップページアイコン */
+.top-icon{
+  align-self: center;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  background-color: #343a40;
+  border-radius: 50%;
+  padding: 0.75rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
 /* ユーザープロフィール */
 .icon-box{
   width: 100%;
